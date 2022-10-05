@@ -1,0 +1,297 @@
+########### Python 3.2 #############
+import http.client, urllib.request, urllib.parse, urllib.error, base64
+from os import read
+from PIL import Image, ImageDraw, ImageFont
+import requests
+import json
+def image_description(url, visualFeatures):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'visualFeatures': visualFeatures,
+        'language': 'en',
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)  
+        face = data['faces']
+        for pos in face:
+            rect = pos['faceRectangle']
+            t = rect['top']
+            l = rect['left']
+            w = rect['width']
+            h = rect['height']
+            img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+
+        return {"data":data, "img":img}
+
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+####################################
+
+def face_detection(url, visualFeatures):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'visualFeatures': visualFeatures,
+        'language': 'en',
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)
+        
+        face = data['faces']
+        for pos in face:
+            rect = pos['faceRectangle']
+            t = rect['top']
+            l = rect['left']
+            w = rect['width']
+            h = rect['height']
+            img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+        
+            img_drw.rectangle([(l, t-60), (l+150, t)], fill="white")
+            font = ImageFont.truetype("AIdemosite/SansSerifFLF.otf", size=44)
+            print("Age: "+str(pos['age']))
+            img_drw.text((l, t-50), "Age: "+str(pos['age']), font=font, fill="black")
+        # print("type of img: ", type(img))
+        # img.show()
+        return img
+
+
+        
+
+
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+def area_of_interest(url):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/areaOfInterest?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+
+        print(data)
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)
+        
+        area = data['areaOfInterest']
+        
+        t = area['y']
+        l = area['x']
+        w = area['w']
+        h = area['h']
+        img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+        
+        # img.show()
+        
+        return img
+
+
+        
+
+
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+def read_text(url, language):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'language': language,
+        'detectOrientation': 'true',
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/ocr?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+        print(data)
+
+        language = data['language']
+        lines = data['regions'][0]['lines']
+
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)
+        
+        sentences = []
+        for line in lines:
+            bound = line['boundingBox']
+            bound_cord = []
+            sentence = ""
+            for cord in bound.split(','):
+                bound_cord.append(int(cord))
+            for word in line['words']:
+                # print(word)
+                sentence += word['text']+" "
+            print(sentence)
+            print(bound_cord)
+            img_drw.rectangle([(bound_cord[0]-10, bound_cord[1]-10), (bound_cord[0]+bound_cord[2]+10, bound_cord[1]+bound_cord[3]+10)], outline ="red", width=3)
+            
+            sentences.append(sentence)
+            # font = ImageFont.truetype("SansSerifFLF.otf", size=20)
+            # img_drw.text((bound_cord[0], bound_cord[1]-35), sentence, font=font, fill="black")
+        print(sentences)
+        return {"img":img, "sentences":sentences, "language":language}
+
+        
+
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+def test():
+    data = {
+        "description": {
+            "captions": [
+                {
+                    "confidence": 0.586622953414917,
+                    "text": "a group of men playing football"
+                }
+            ],
+            "tags": [
+                "person",
+                "grass",
+                "soccer",
+                "field",
+                "playing",
+                "outdoor",
+                "player",
+                "game",
+                "match",
+                "female"
+            ]
+        },
+        "faces": [
+            {
+                "age": 27,
+                "faceRectangle": {
+                    "height": 122,
+                    "left": 508,
+                    "top": 200,
+                    "width": 122
+                },
+                "gender": "Male"
+            },
+            {
+                "age": 29,
+                "faceRectangle": {
+                    "height": 110,
+                    "left": 1530,
+                    "top": 202,
+                    "width": 110
+                },
+                "gender": "Male"
+            },
+            {
+                "age": 24,
+                "faceRectangle": {
+                    "height": 102,
+                    "left": 759,
+                    "top": 224,
+                    "width": 102
+                },
+                "gender": "Male"
+            }
+        ],
+        "metadata": {
+            "format": "Jpeg",
+            "height": 1413,
+            "width": 2120
+        },
+        "modelVersion": "2021-05-01",
+        "requestId": "af4fd9af-5923-4d84-b9de-b8bcca566e5b"
+    }
+
+    url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+    img = Image.open(requests.get(url, stream=True).raw)
+    
+    # create rectangle image
+    img_drw = ImageDraw.Draw(img)  
+
+    face = data['faces']
+    for pos in face:
+
+        rect = pos['faceRectangle']
+        t = rect['top']
+        l = rect['left']
+        w = rect['width']
+        h = rect['height']
+        img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+        img_drw.rectangle([(l, t-60), (l+150, t)], fill="white")
+        font = ImageFont.truetype("AIdemosite/SansSerifFLF.otf", size=44)
+        print("Age: "+str(pos['age']))
+        img_drw.text((l, t-50), "Age: "+str(pos['age']), font=font, fill="black")
+
+    # img.show()
+    return img
+
+# read_text('https://rlv.zcache.com/custom_your_text_image_background_color_bumper_sticker-r9a7314b88be545a4886346db9bb7cf95_v9wht_8byvr_630.jpg?view_padding=[285%2C0%2C285%2C0]')
+
+# area_of_interest("https://merriam-webster.com/assets/ld/word_of_the_day/images/2540/large.jpg")
+
+# img = face_detection('https://th-i.thgim.com/public/sport/football/u4adlh/article35828916.ece/alternates/FREE_1200/Lionel-Messi-of-Barcelona-Press-Conference', 'faces')
+# img = test()
+# img.show()
+# print("test:")

@@ -1,0 +1,60 @@
+{% extends 'AIdemosite/base.html' %}
+{% block content %}
+
+<div style="padding-top: 50px"></div>
+<form method="post" class="container-fluid">
+    {% csrf_token %}
+    <!-- Speech to text -->
+    <div class="input-group mb-3">
+        <select class="btn btn-outline-primary" aria-label="Default select example" name="language-s2t">
+            <option selected value="en-US">English</option>
+            <option value="zh-TW">中文</option>
+            <option value="es-ES">Español</option>
+            <option value="fr-FR">Français</option>
+            <option value="de-DE">Deutsch</option>
+            <option value="ja-JP">日本語</option>
+        </select>
+        <button type="submit" class="btn btn-outline-secondary" name="btn_s2t">Speech to text</button>
+        <input type="text" class="form-control " value="{{s2t}}" name="s2t">
+    </div>
+
+    <!-- translation -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" value="{{translate_input}}" name="translate_from_txt">
+        <select class="btn btn-outline-primary" aria-label="Default select example" name="translate_from_lan">
+            <option selected value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+        </select>
+        <select class="btn btn-outline-primary" aria-label="Default select example" name="translate_to_lan">
+            <option value="en">English</option>
+            <option selected value="zh-hant">中文</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+        </select>
+        <input type="text" class="form-control" value="{{translate_result}}" name="translate_result">
+        <button type="submit" class="btn btn-outline-secondary" name="btn-translate">Translate</button>
+    </div>
+      
+    <!-- Text to speech -->
+    <div class="input-group mb-3">
+        <select class="btn btn-outline-primary" aria-label="Default select example" name="language-t2s">
+            <option value="en-US-BrandonNeural">English</option>
+            <option selected value="zh-TW-YunJheNeural">中文</option>
+            <option value="es-ES-AlvaroNeural">Español</option>
+            <option value="fr-FR-AlainNeural">Français</option>
+            <option value="de-DE-AmalaNeural">Deutsch</option>
+            <option value="ja-JP-KeitaNeural">日本語</option>
+        </select>
+        <input type="text" class="form-control" value="{{t2s}}" name="input_t2s">
+        <button type="submit" class="btn btn-outline-secondary" name="btn_t2s">Text to speech</button>
+    </div>
+    
+</form>
+
+{% endblock %}

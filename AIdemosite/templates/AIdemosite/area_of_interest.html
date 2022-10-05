@@ -1,0 +1,50 @@
+{% extends 'AIdemosite/base.html' %}
+{% block content %}
+{% load static %}
+
+<div style="padding-top: 50px"></div>
+<form method="post" class="container-fluid">
+    {% csrf_token %}
+    
+    <h2>Area of Interest</h2>
+    <div class="input-group mb-3 mt-3">
+        <span class="input-group-text" >Image URL</span>
+        <input type="text" id="img-url" name="img-url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <button type="submit" class="btn btn-outline-secondary" name="analyze">Analyze</button>
+        <button id="img-modal-btn" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#popup-img">
+        Image Preview
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="popup-img" tabindex="-1" aria-labelledby="popup-imgLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popup-imgLabel">Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="img-container" class="modal-body">
+                    <img id="modal-img" class="img-fluid" src="" alt="img not found">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        document.getElementById('img-modal-btn').onclick = function() {
+            img = document.getElementById('modal-img');
+            img.src = document.getElementById('img-url').value;
+        }
+        </script> 
+    </div>
+    <div class="input-group mb-3">
+        {% if flag == True %}
+        <img id="modal-img" class="img-fluid" src="{% static 'images/area_of_interest_result.jpg'%}" alt="img not found">        
+        {% endif %}     
+    </div>
+</form>
+
+<div style="padding-top: 50px"></div>
+{% endblock %}
