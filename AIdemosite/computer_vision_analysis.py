@@ -4,11 +4,21 @@ from os import read
 from PIL import Image, ImageDraw, ImageFont
 import requests
 import json
+import environ
+
+
+env = environ.Env()
+env.read_env(env.str('ENV_PATH', 'demosite/.env'))
+
+CV_SUB_KEY = env('CV_SUB_KEY')
+REGION = env('REGION')
+
 def image_description(url, visualFeatures):
+    
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
     }
 
     params = urllib.parse.urlencode({
@@ -19,7 +29,7 @@ def image_description(url, visualFeatures):
     })
 
     try:
-        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
         # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
         conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
         response = conn.getresponse()
@@ -50,7 +60,7 @@ def face_detection(url, visualFeatures):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
     }
 
     params = urllib.parse.urlencode({
@@ -61,7 +71,7 @@ def face_detection(url, visualFeatures):
     })
 
     try:
-        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
         # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
         conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
         response = conn.getresponse()
@@ -102,7 +112,7 @@ def area_of_interest(url):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
     }
 
     params = urllib.parse.urlencode({
@@ -111,7 +121,7 @@ def area_of_interest(url):
     })
 
     try:
-        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
         # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
         conn.request("POST", "/vision/v3.2/areaOfInterest?%s" % params, ('{"url":"%s"}' % url), headers)
         response = conn.getresponse()
@@ -148,7 +158,7 @@ def read_text(url, language):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '61486844400e4ab4aae44c272465ecb6',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
     }
 
     params = urllib.parse.urlencode({
@@ -159,7 +169,7 @@ def read_text(url, language):
     })
 
     try:
-        conn = http.client.HTTPSConnection('eastasia.api.cognitive.microsoft.com')
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
         # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
         conn.request("POST", "/vision/v3.2/ocr?%s" % params, ('{"url":"%s"}' % url), headers)
         response = conn.getresponse()

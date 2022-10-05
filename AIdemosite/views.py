@@ -46,7 +46,7 @@ def speech_services(response):
         print()
     if response.method == 'POST' and 'btn_s2t' in response.POST:
         # Speech-to-text
-        from .speech_recognition import recognize_from_microphone
+        from .speech_services import recognize_from_microphone
         language_s2t = response.POST.get('language-s2t')
         txt = recognize_from_microphone(language_s2t)
         
@@ -60,7 +60,7 @@ def speech_services(response):
         translate_from_lan = response.POST.get('translate_from_lan')
         translate_to_lan = response.POST.get('translate_to_lan')
 
-        from .translator import translate
+        from .speech_services import translate
         translate_result = translate(translate_from_txt, translate_from_lan, translate_to_lan)
         
         
@@ -74,7 +74,7 @@ def speech_services(response):
 
         language_sound = response.POST.get('language-t2s')
         t2s = response.POST.get('input_t2s')
-        from .speech_synthesis import read_txt
+        from .speech_services import read_txt
         read_txt(t2s, language_sound)
 
         return render(response, "AIdemosite/speech_services.html", {"s2t":s2t, "t2s":t2s, "translate_input":translate_input, "translate_result":translate_result})
@@ -84,7 +84,7 @@ def speech_services(response):
 def speech_translate(response):
 
     if response.method == 'POST':
-        from .speech_translate import translate_from_speech
+        from .speech_services import translate_from_speech
         language = response.POST.get('language-speach')
         translate_result = translate_from_speech(language)
         

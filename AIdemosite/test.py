@@ -62,9 +62,17 @@ import json
 
 # img.show()
 
-lan = "zh-Hans (ChineseSimplified)zh-Hant (ChineseTraditional)cs (Czech)da (Danish)nl (Dutch)en (English)fi (Finnish)fr (French)de (German)el (Greek)hu (Hungarian)it (Italian)ja (Japanese)ko (Korean)nb (Norwegian)pl (Polish)pt (Portuguese,ru (Russian)es (Spanish)sv (Swedish)tr (Turkish)ar (Arabic)ro (Romanian)sr-Cyrl (SerbianCyrillic)sr-Latn (SerbianLatin)sk (Slovak)"
-lan = lan.replace(' (', '":"')
-lan = lan.replace(')', ",")
-print(lan)
-lans = lan.split(',')
-print(lans)
+# lan = "zh-Hans (ChineseSimplified)zh-Hant (ChineseTraditional)cs (Czech)da (Danish)nl (Dutch)en (English)fi (Finnish)fr (French)de (German)el (Greek)hu (Hungarian)it (Italian)ja (Japanese)ko (Korean)nb (Norwegian)pl (Polish)pt (Portuguese,ru (Russian)es (Spanish)sv (Swedish)tr (Turkish)ar (Arabic)ro (Romanian)sr-Cyrl (SerbianCyrillic)sr-Latn (SerbianLatin)sk (Slovak)"
+# lan = lan.replace(' (', '":"')
+# lan = lan.replace(')', ",")
+# print(lan)
+# lans = lan.split(',')
+# print(lans)
+import environ
+import os
+env = environ.Env()
+env.read_env(env.str('ENV_PATH', '../demosite/.env'))
+CV_SUB_KEY = env('CV_SUB_KEY')
+print(env('REGION'))
+# print(env('CV_SUB_KEY'))
+# print(os.environ.get('CV_SUB_KEY'))
