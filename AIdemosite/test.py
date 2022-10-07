@@ -1,8 +1,8 @@
 
-import http.client, urllib.request, urllib.parse, urllib.error, base64
-from PIL import Image, ImageDraw, ImageFont
-import requests
-import json
+# import http.client, urllib.request, urllib.parse, urllib.error, base64
+# from PIL import Image, ImageDraw, ImageFont
+# import requests
+# import json
 
 # data = {
 #         'language': 'en',
@@ -68,11 +68,11 @@ import json
 # print(lan)
 # lans = lan.split(',')
 # print(lans)
-import environ
-import os
-env = environ.Env()
-env.read_env(env.str('ENV_PATH', '../demosite/.env'))
-CV_SUB_KEY = env('CV_SUB_KEY')
-print(env('REGION'))
+# import environ
+# import os
+# env = environ.Env()
+# env.read_env(env.str('ENV_PATH', '../demosite/.env'))
+# CV_SUB_KEY = env('CV_SUB_KEY')
+# print(env('REGION'))
 # print(env('CV_SUB_KEY'))
 # print(os.environ.get('CV_SUB_KEY'))

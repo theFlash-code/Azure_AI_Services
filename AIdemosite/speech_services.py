@@ -1,5 +1,5 @@
 import azure.cognitiveservices.speech as speechsdk
-import requests, uuid, json
+import requests, json  #, uuid
 import environ
 
 env = environ.Env()
@@ -137,7 +137,7 @@ def translate(text, translate_from, translate_to):
         # location required if you're using a multi-service or regional (not global) resource.
         'Ocp-Apim-Subscription-Region': location,
         'Content-type': 'application/json',
-        'X-ClientTraceId': str(uuid.uuid4())
+        # 'X-ClientTraceId': str(uuid.uuid4())
     }
 
     # You can pass more than one object in body.
