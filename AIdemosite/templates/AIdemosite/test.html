@@ -1,49 +1,125 @@
-{% extends 'AIdemosite/base.html' %}
-{% block content %}
+{% extends 'AIdemosite/base.html' %} {% block content %}
 
-<!-- Button trigger modal -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Record Audio Test</title>
+  </head>
+  <body>
+    <h1>Audio Recording Test</h1>
+    <p>Talk for 3 seconds, then you will hear your recording played back</p>
 
+    <button id="action" onclick="handleAction()">Start recording...</button>
+  </body>
+</html>
 
-<input type="text" id="img-url" value="" />
-<button id="img-modal-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popup-img">
-  Image Preview
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="popup-img" tabindex="-1" aria-labelledby="popup-imgLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="popup-imgLabel">Image</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div id="img-container" class="modal-body">
-        <img id="modal-img" class="img-fluid" src="" alt="img not found">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
+<div style="padding-top: 50px"></div>
+<form method="post" class="container-fluid">
+  {% csrf_token %}
+  <!-- Speech to text -->
+  <label class="form-label">Speach Language:</label>
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="language-speach"
+    >
+      <option selected value="en-US">English</option>
+      <option value="zh-TW">中文</option>
+      <option value="es-ES">Español</option>
+      <option value="fr-FR">Français</option>
+      <option value="de-DE">Deutsch</option>
+      <option value="ja-JP">日本語</option>
+    </select>
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      name="btn_s2t"
+      id="btn_s2t"
+    >
+      Speech to text2
+    </button>
   </div>
-</div>
+  <label class="form-label">Translate to:</label>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">中文</span>
+    <input type="text" class="form-control" value="{{zh}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">English</span>
+    <input type="text" class="form-control" value="{{en}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Español</span>
+    <input type="text" class="form-control" value="{{es}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Français</span>
+    <input type="text" class="form-control" value="{{fr}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Deutsch</span>
+    <input type="text" class="form-control" value="{{de}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">日本語</span>
+    <input type="text" class="form-control" value="{{ja}}" name="s2t" />
+  </div>
+</form>
 <script>
-    document.getElementById('img-modal-btn').onclick = function() {
-      // console.log("test")
-      img = document.getElementById('modal-img');
-      img.src = document.getElementById('img-url').value;
-  }
+  // document.getElementById('btn_s2t').onclick = function() {
+  //   console.log("btn test!!")
+  //   getLocalStream();
+  // }
+  // function getLocalStream() {
+  //     navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
+  //         window.localStream = stream;
+  //         window.localAudio.srcObject = stream;
+  //         window.localAudio.autoplay = true;
+  //     }).catch((err) => {
+  //         console.error(`you got an error: ${err}`)
+  //     });
+  // }
+  const recordAudio = () =>
+    new Promise(async (resolve) => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const audioChunks = [];
+
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        audioChunks.push(event.data);
+      });
+
+      const start = () => mediaRecorder.start();
+
+      const stop = () =>
+        new Promise((resolve) => {
+          mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            const play = () => audio.play();
+            resolve({ audioBlob, audioUrl, play });
+          });
+
+          mediaRecorder.stop();
+        });
+
+      resolve({ start, stop });
+    });
+
+  const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
+  const handleAction = async () => {
+    const recorder = await recordAudio();
+    const actionButton = document.getElementById("action");
+    actionButton.disabled = true;
+    recorder.start();
+    await sleep(3000);
+    const audio = await recorder.stop();
+    audio.play();
+    await sleep(3000);
+    actionButton.disabled = false;
+  };
 </script>
 {% endblock %}
-<script>
-  var myModal = document.getElementById('myModal')
-  var myInput = document.getElementById('myInput')
-
-  myModal.addEventListener('shown.bs.modal', function () {
-    myInput.focus()
-  })
-
-  
-</script>
-
-
-

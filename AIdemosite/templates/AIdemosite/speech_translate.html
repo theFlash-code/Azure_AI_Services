@@ -15,7 +15,8 @@
             <option value="de-DE">Deutsch</option>
             <option value="ja-JP">日本語</option>
         </select>
-        <button type="submit" class="btn btn-outline-secondary" name="btn_s2t">Speech to text</button>
+        <button type="submit" class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">Speech to text</button>
+        <button class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">Speech to text2</button>
     </div>
     <label class="form-label">Translate to:</label>
     <div class="input-group mb-3">
@@ -43,5 +44,18 @@
         <input type="text" class="form-control " value="{{ja}}" name="s2t">
     </div>
 </form>
-
+<script>
+    document.getElementById('img-modal-btn').onclick = function() {
+        getLocalStream();
+    }
+    function getLocalStream() {
+        navigator.mediaDevices.getUserMedia({video: false, audio: true}).then((stream) => {
+            window.localStream = stream;
+            window.localAudio.srcObject = stream;
+            window.localAudio.autoplay = true;
+        }).catch((err) => {
+            console.error(`you got an error: ${err}`)
+        });
+    }
+</script>
 {% endblock %}
