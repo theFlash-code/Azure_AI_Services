@@ -1,50 +1,62 @@
-{% extends 'AIdemosite/base.html' %}
-{% block content %}
+{% extends 'AIdemosite/base.html' %} {% block content %}
 
 <div style="padding-top: 50px"></div>
 <form method="post" class="container-fluid">
-    {% csrf_token %}
-    <!-- Speech to text -->
-    <label class="form-label">Speach Language:</label>
-    <div class="input-group mb-3">
-        <select class="btn btn-outline-primary" aria-label="Default select example" name="language-speach">
-            <option selected value="en-US">English</option>
-            <option value="zh-TW">中文</option>
-            <option value="es-ES">Español</option>
-            <option value="fr-FR">Français</option>
-            <option value="de-DE">Deutsch</option>
-            <option value="ja-JP">日本語</option>
-        </select>
-        <button type="submit" class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">Speech to text</button>
-        <button class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">Speech to text2</button>
-    </div>
-    <label class="form-label">Translate to:</label>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">中文</span>
-        <input type="text" class="form-control " value="{{zh}}" name="s2t">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">English</span>
-        <input type="text" class="form-control " value="{{en}}" name="s2t">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">Español</span>
-        <input type="text" class="form-control " value="{{es}}" name="s2t">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">Français</span>
-        <input type="text" class="form-control " value="{{fr}}" name="s2t">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">Deutsch</span>
-        <input type="text" class="form-control " value="{{de}}" name="s2t">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="addon-wrapping">日本語</span>
-        <input type="text" class="form-control " value="{{ja}}" name="s2t">
-    </div>
+  {% csrf_token %}
+  <!-- Speech to text -->
+  <label class="form-label">Speach Language:</label>
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="language-speach"
+    >
+      <option selected value="en-US">English</option>
+      <option value="zh-TW">中文</option>
+      <option value="es-ES">Español</option>
+      <option value="fr-FR">Français</option>
+      <option value="de-DE">Deutsch</option>
+      <option value="ja-JP">日本語</option>
+    </select>
+    <button
+      type="submit"
+      class="btn btn-outline-secondary"
+      name="btn_s2t"
+      id="btn_s2t"
+    >
+      Speech to text
+    </button>
+    <!-- <button class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">
+      Speech to text2
+    </button> -->
+  </div>
+  <label class="form-label">Translate to:</label>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">中文</span>
+    <input type="text" class="form-control" value="{{zh}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">English</span>
+    <input type="text" class="form-control" value="{{en}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Español</span>
+    <input type="text" class="form-control" value="{{es}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Français</span>
+    <input type="text" class="form-control" value="{{fr}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">Deutsch</span>
+    <input type="text" class="form-control" value="{{de}}" name="s2t" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="addon-wrapping">日本語</span>
+    <input type="text" class="form-control" value="{{ja}}" name="s2t" />
+  </div>
 </form>
-<script>
+<!-- <script>
     document.getElementById('img-modal-btn').onclick = function() {
         getLocalStream();
     }
@@ -57,5 +69,5 @@
             console.error(`you got an error: ${err}`)
         });
     }
-</script>
+</script> -->
 {% endblock %}

@@ -2,12 +2,16 @@ import azure.cognitiveservices.speech as speechsdk
 import requests, json  #, uuid
 import environ
 
-env = environ.Env()
-env.read_env(env.str('ENV_PATH', 'demosite/.env'))
+# env = environ.Env()
+# env.read_env(env.str('ENV_PATH', 'demosite/.env'))
 
-SR_SUB_KEY = env('SR_SUB_KEY')
-TR_SUB_KEY = env('TR_SUB_KEY')
-REGION = env('REGION')
+# SR_SUB_KEY = env('SR_SUB_KEY')
+# TR_SUB_KEY = env('TR_SUB_KEY')
+# REGION = env('REGION')
+
+SR_SUB_KEY='ac1b8fe3034344a787dc45b06243f51b'
+TR_SUB_KEY='01ce4919dcd540fc8832a824102af1c4'
+REGION='eastasia'
 
 def recognize_from_microphone(language):
     speech_config = speechsdk.SpeechConfig(subscription=SR_SUB_KEY, region=REGION)
