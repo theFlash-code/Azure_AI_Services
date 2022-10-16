@@ -5,13 +5,20 @@ from PIL import Image, ImageDraw, ImageFont
 import requests
 import json
 import environ
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
 
+from AIdemosite.test import KVUri
 
-env = environ.Env()
-env.read_env(env.str('ENV_PATH', 'demosite/.env'))
+# env = environ.Env()
+# env.read_env(env.str('ENV_PATH', 'demosite/.env'))
 
-CV_SUB_KEY = env('CV_SUB_KEY')
-REGION = env('REGION')
+KVUri = "https://aidemosite-keyvault.vault.azure.net"
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
+
+CV_SUB_KEY = client.get_secret("CV-SUB-KEY")
+REGION = client.get_secret("REGION")
 
 def image_description(url, visualFeatures):
     

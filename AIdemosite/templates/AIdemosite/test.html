@@ -67,59 +67,60 @@
   </div>
 </form>
 <script>
-  // document.getElementById('btn_s2t').onclick = function() {
-  //   console.log("btn test!!")
-  //   getLocalStream();
-  // }
-  // function getLocalStream() {
-  //     navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
-  //         window.localStream = stream;
-  //         window.localAudio.srcObject = stream;
-  //         window.localAudio.autoplay = true;
-  //     }).catch((err) => {
-  //         console.error(`you got an error: ${err}`)
-  //     });
-  // }
-  const recordAudio = () =>
-    new Promise(async (resolve) => {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      const audioChunks = [];
-
-      mediaRecorder.addEventListener("dataavailable", (event) => {
-        audioChunks.push(event.data);
+  document.getElementById('btn_s2t').onclick = function() {
+    console.log("btn test!!")
+    getLocalStream();
+  }
+  function getLocalStream() {
+      navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
+          window.localStream = stream;
+          window.localAudio.srcObject = stream;
+          window.localAudio.autoplay = true;
+      }).catch((err) => {
+          console.error(`you got an error: ${err}`)
       });
+  }
 
-      const start = () => mediaRecorder.start();
+  // const recordAudio = () =>
+  //   new Promise(async (resolve) => {
+  //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  //     const mediaRecorder = new MediaRecorder(stream);
+  //     const audioChunks = [];
 
-      const stop = () =>
-        new Promise((resolve) => {
-          mediaRecorder.addEventListener("stop", () => {
-            const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-            const play = () => audio.play();
-            resolve({ audioBlob, audioUrl, play });
-          });
+  //     mediaRecorder.addEventListener("dataavailable", (event) => {
+  //       audioChunks.push(event.data);
+  //     });
 
-          mediaRecorder.stop();
-        });
+  //     const start = () => mediaRecorder.start();
 
-      resolve({ start, stop });
-    });
+  //     const stop = () =>
+  //       new Promise((resolve) => {
+  //         mediaRecorder.addEventListener("stop", () => {
+  //           const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+  //           const audioUrl = URL.createObjectURL(audioBlob);
+  //           const audio = new Audio(audioUrl);
+  //           const play = () => audio.play();
+  //           resolve({ audioBlob, audioUrl, play });
+  //         });
 
-  const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+  //         mediaRecorder.stop();
+  //       });
 
-  const handleAction = async () => {
-    const recorder = await recordAudio();
-    const actionButton = document.getElementById("action");
-    actionButton.disabled = true;
-    recorder.start();
-    await sleep(3000);
-    const audio = await recorder.stop();
-    audio.play();
-    await sleep(3000);
-    actionButton.disabled = false;
-  };
+  //     resolve({ start, stop });
+  //   });
+
+  // const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
+  // const handleAction = async () => {
+  //   const recorder = await recordAudio();
+  //   const actionButton = document.getElementById("action");
+  //   actionButton.disabled = true;
+  //   recorder.start();
+  //   await sleep(3000);
+  //   const audio = await recorder.stop();
+  //   audio.play();
+  //   await sleep(3000);
+  //   actionButton.disabled = false;
+  // };
 </script>
 {% endblock %}

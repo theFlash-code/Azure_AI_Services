@@ -7,7 +7,7 @@ import environ
 
 # SR_SUB_KEY = env('SR_SUB_KEY')
 # TR_SUB_KEY = env('TR_SUB_KEY')
-# REGION = env('REGION')
+# REGION = env('REGION')s
 
 SR_SUB_KEY='ac1b8fe3034344a787dc45b06243f51b'
 TR_SUB_KEY='01ce4919dcd540fc8832a824102af1c4'
