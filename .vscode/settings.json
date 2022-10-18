@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "appService.zipIgnorePattern": [
         "__pycache__{,/**}",
         "*.py[cod]",
@@ -30,4 +31,8 @@
         "venv.bak{,/**}",
         ".vscode{,/**}",
     ]
+=======
+    "appService.defaultWebAppToDeploy": "/subscriptions/979b4825-25a2-4a44-b45b-9ec15fb3d60c/AppServices/subscriptions/979b4825-25a2-4a44-b45b-9ec15fb3d60c/resourceGroups/myLearningGroup/providers/Microsoft.Web/sites/azureaiservices",
+    "appService.deploySubpath": "."
+>>>>>>> production
 }
