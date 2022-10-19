@@ -8,7 +8,7 @@ import environ
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
-from AIdemosite.test import KVUri
+# from AIdemosite.test import KVUri
 
 # env = environ.Env()
 # env.read_env(env.str('ENV_PATH', 'demosite/.env'))
@@ -17,8 +17,8 @@ KVUri = "https://aidemosite-keyvault.vault.azure.net"
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
 
-CV_SUB_KEY = client.get_secret("CV-SUB-KEY")
-REGION = client.get_secret("REGION")
+CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
+REGION = client.get_secret("REGION").value
 
 def image_description(url, visualFeatures):
     
@@ -37,6 +37,7 @@ def image_description(url, visualFeatures):
 
     try:
         conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
+        print(str(REGION)+'.api.cognitive.microsoft.com')
         # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
         conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
         response = conn.getresponse()

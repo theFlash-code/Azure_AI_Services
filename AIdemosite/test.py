@@ -12,11 +12,11 @@
 # secretName = 'REGION'
 # secretValue = 'eastasia'
 
-# print(f"Creating a secret in {keyVaultName} called '{secretName}' with the value '{secretValue}' ...")
+# # print(f"Creating a secret in {keyVaultName} called '{secretName}' with the value '{secretValue}' ...")
 
-# client.set_secret(secretName, secretValue)
+# # client.set_secret(secretName, secretValue)
 
-# print(" done.")
+# # print(" done.")
 
 # print(f"Retrieving your secret from {keyVaultName}.")
 
