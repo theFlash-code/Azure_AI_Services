@@ -8,7 +8,7 @@ import environ
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
-from AIdemosite.test import KVUri
+# from AIdemosite.test import KVUri
 
 
 KVUri = "https://aidemosite-keyvault.vault.azure.net"
