@@ -10,8 +10,6 @@ from azure.identity import DefaultAzureCredential
 
 from AIdemosite.test import KVUri
 
-# env = environ.Env()
-# env.read_env(env.str('ENV_PATH', 'demosite/.env'))
 
 KVUri = "https://aidemosite-keyvault.vault.azure.net"
 credential = DefaultAzureCredential()
