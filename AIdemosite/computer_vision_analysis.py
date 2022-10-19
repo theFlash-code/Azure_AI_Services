@@ -15,8 +15,8 @@ KVUri = "https://aidemosite-keyvault.vault.azure.net"
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
 
-CV_SUB_KEY = client.get_secret("CV-SUB-KEY")
-REGION = client.get_secret("REGION")
+CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
+REGION = client.get_secret("REGION").value
 
 def image_description(url, visualFeatures):
     
