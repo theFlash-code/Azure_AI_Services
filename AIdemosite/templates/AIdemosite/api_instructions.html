@@ -1,0 +1,182 @@
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/prism.css'%}" />
+<!-- <link rel="stylesheet" href="prism.css" /> -->
+
+<div style="padding-top: 50px"></div>
+<h1>API instructions</h1>
+<h3>Image Analysis</h3>
+<p>
+  This Website uses
+  <a
+    href="https://westus.dev.cognitive.microsoft.com/docs/services/computer-vision-v3-2/operations/56f91f2e778daf14a499f21b"
+    >Computer Vision API (v3.2)</a
+  >
+  <br />
+  The new version Computer
+  <a
+    href="https://westus.dev.cognitive.microsoft.com/docs/services//unified-vision-apis-public-preview-2022-10-12-preview/operations/61d65934cd35050c20f73ab6"
+    >Computer Vision API (v4)</a
+  >
+  is now in preview (2022/10/12)
+</p>
+<hr class="hr" />
+
+<h5>Request URL</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  https://{endpoint}/vision/v3.2/analyze[?visualFeatures][&details][&language][&model-version]
+</div>
+<div style="padding-top: 20px"></div>
+<hr class="hr" />
+
+<h5>endpoint</h5>
+<div class="pb-2">
+  the endpoint will usually show in your service <b>overview in azure portal</b>
+</div>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  https://[your_service_name].cognitiveservices.azure.com/
+</div>
+
+<div style="padding-top: 20px"></div>
+<hr class="hr" />
+<h5>Request parameters</h5>
+
+<h6>visualFeatures</h6>
+<div class="pb-2">
+  A string indicating what visual feature types to return. Multiple values
+  should be comma-separated.
+  <ul>
+    <li>
+      <b>Adults - </b>detects if the image is pornographic in nature (depicts
+      nudity or a sex act), or is gory (depicts extreme violence or blood).
+      Sexually suggestive content (aka racy content) is also detected.
+    </li>
+    <li>
+      <b>Brands - </b>detects various brands within an image, including the
+      approximate location. The Brands argument is only available in English.
+    </li>
+    <li>
+      <b>Categories - </b>categorizes image content according to a taxonomy
+      defined in documentation.
+    </li>
+    <li>
+      <b>Color - </b>determines the accent color, dominant color, and whether an
+      image is black&white.
+    </li>
+    <li>
+      <b>Description - </b>describes the image content with a complete sentence
+      in supported languages.
+    </li>
+    <li>
+      <b>Faces - </b>detects if faces are present. If present, generate
+      coordinates, gender and age.
+    </li>
+    <li><b>ImageType - </b>detects if image is clipart or a line drawing.</li>
+    <li>
+      <b>Objects - </b>detects various objects within an image, including the
+      approximate location. The Objects argument is only available in English.
+    </li>
+    <li>
+      <b>Tags - </b>tags the image with a detailed list of words related to the
+      image content.
+    </li>
+  </ul>
+</div>
+<h6>details</h6>
+<div class="pb-2">
+  A string indicating which domain-specific details to return. Multiple values
+  should be comma-separated.
+  <ul>
+    <li>
+      <b>Celebrities - </b>identifies celebrities if detected in the image.
+    </li>
+    <li><b>Landmarks - </b>identifies landmarks if detected in the image.</li>
+  </ul>
+</div>
+<h6>language</h6>
+<div class="pb-2">
+  A string indicating which language to return. The service will return
+  recognition results in specified language. If this parameter is not specified,
+  the default value is "en". See
+  <a href="https://aka.ms/cv-languages">Language Support</a> for list of
+  supported languages.
+</div>
+<h6>model-version</h6>
+<div class="pb-2">
+  Optional parameter to specify the version of the AI model. The default value
+  is "latest".
+</div>
+
+<div style="padding-top: 20px"></div>
+<hr class="hr" />
+<h5>Request headers</h5>
+<h6>Content-Type</h6>
+<div class="pb-2">Media type of the body sent to the API.</div>
+<h6>Ocp-Apim-Subscription-Key</h6>
+<div class="pb-2">
+  Subscription key which provides access to this API. Found in your
+  <a
+    href="https://portal.azure.com/#blade/HubsExtension/BrowseResourceBlade/resourceType/Microsoft.CognitiveServices%2Faccounts"
+    >Cognitive Services accounts</a
+  >.
+</div>
+<hr class="hr" />
+<h5>Request body</h5>
+<div class="pb-2">
+  Input passed within the POST body. Supported input methods: raw image binary
+  or image URL.
+  <ul>
+    <li>Supported image formats: JPEG, PNG, GIF, BMP.</li>
+    <li>Image file size must be less than 4MB.</li>
+    <li>Image dimensions must be at least 50 x 50.</li>
+  </ul>
+</div>
+
+<hr class="hr" />
+<h5>Code Sample</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python 3.2 #############
+import http.client, urllib.request, urllib.parse, urllib.error, base64
+
+headers = {
+    # Request headers
+    'Content-Type': 'application/json',
+    'Ocp-Apim-Subscription-Key': '{subscription key}',
+}
+
+params = urllib.parse.urlencode({
+    # Request parameters
+    'visualFeatures': 'Categories',
+    'details': '{string}',
+    'language': 'en',
+    'model-version': 'latest',
+})
+
+try:
+    conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
+    conn.request("POST", "/vision/v3.2/analyze?%s" % params, "{body}", headers)
+    response = conn.getresponse()
+    data = response.read()
+    print(data)
+    conn.close()
+except Exception as e:
+    print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+####################################
+    </code>
+    </pre>
+</div>
+<div style="padding-top: 50px"></div>
+
+<script src="{% static 'js/prism.js'%}"></script>
+{% endblock %}

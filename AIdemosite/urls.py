@@ -10,4 +10,5 @@ urlpatterns = [
     path("area_of_interest/", views.area_of_interest, name="area_of_interest"),
     path("read_text/", views.read_text, name="read_text"),
     path("test/", views.test, name="test"),
+    path("api_instructions/", views.api_instruction, name="api_instructions")
 ]

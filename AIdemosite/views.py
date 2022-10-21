@@ -146,3 +146,5 @@ def test(response):
     
     return render(response, "AIdemosite/test.html", {})
     
+def api_instruction(response):
+    return render(response, "AIdemosite/api_instructions.html", {})
