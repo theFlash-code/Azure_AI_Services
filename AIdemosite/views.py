@@ -147,4 +147,10 @@ def test(response):
     return render(response, "AIdemosite/test.html", {})
     
 def api_instruction(response):
-    return render(response, "AIdemosite/api_instructions.html", {})
+    if response.method == 'GET':
+        # print(response)
+        language = response.GET.get('language')
+        print(language)
+        return render(response, "AIdemosite/api_instructions.html", {"language":language})
+
+    return render(response, "AIdemosite/api_instructions.html", {"language":"en"})
