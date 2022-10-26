@@ -152,5 +152,5 @@ def api_instruction(response):
         language = response.GET.get('language')
         print(language)
         return render(response, "AIdemosite/api_instructions.html", {"language":language})
-
-    return render(response, "AIdemosite/api_instructions.html", {"language":"en"})
+    
+    return render(response, "AIdemosite/api_instructions.html", {})

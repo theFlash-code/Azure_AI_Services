@@ -16,7 +16,7 @@
 </form>
 <div style="padding-top: 20px"></div>
 
-{% if language == "en" %}
+{% if language == "en" or language == ""%}
 <h1>API instructions</h1>
 <h3>Image Analysis</h3>
 <p>
@@ -197,7 +197,7 @@
 <hr class="hr" />
 
 <!-- Request parameters -->
-<h5>Request 參數</h5>
+<h5>請求參數 (Request Parameter)</h5>
 
 <h6>visualFeatures 視覺特徵</h6>
 <div class="pb-2">
@@ -290,7 +290,7 @@
 </div>
 
 <hr class="hr" />
-<h5>城市範例</h5>
+<h5>程式範例：</h5>
 {% endif %}
 <div
   class="p-2"
