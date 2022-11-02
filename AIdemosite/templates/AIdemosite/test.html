@@ -1,126 +1,148 @@
-{% extends 'AIdemosite/base.html' %} {% block content %}
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+<!-- 
+<button
+  id="record_btn"
+  class="btn btn-outline-secondary"
+  onclick="startRecord()"
+>
+  Start record
+</button>
+<button id="stop__btn" class="btn btn-outline-secondary" onclick="stopRecord()">
+  Stop recording
+</button>
+<div class="audio">
+  <audio controls="controls" id="audio"></audio>
+</div>
 
+<script src="{% static 'js/recorder.js'%}"></script>
+<script>
+  var recorder;
+  var stream;
+  var url;
+  function startRecord() {
+    var device = navigator.mediaDevices.getUserMedia({ audio: true });
+    var items = [];
+    device.then((stream) => {
+      recorder = new MediaRecorder(stream);
+      this.stream = stream;
+      recorder.ondataavailable = (e) => {
+        items.push(e.data);
+        if (recorder.state == "inactive") {
+          var blob = new Blob(items, { type: "audio/wav" });
+          var audio = document.getElementById("audio");
+          url = URL.createObjectURL(blob);
+          audio.setAttribute("src", url);
+        }
+      };
+      recorder.start();
+    });
+  }
+  function stopRecord() {
+    recorder.stop();
+    stream.getTracks().forEach(function (track) {
+      if (track.readyState == "live" && track.kind === "audio") {
+        track.stop();
+      }
+    });
+    recorder.exportWAV(function (e) {
+      recorder.clear();
+      Recorder.forceDownload(e, "audio.wav");
+    });
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "Ocp-Apim-Subscription-Key",
+      "ac1b8fe3034344a787dc45b06243f51b"
+    );
+    myHeaders.append("Content-Type", "audio/wav");
+    myHeaders.append(
+      "Authorization",
+      "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpb24iOiJlYXN0YXNpYSIsInN1YnNjcmlwdGlvbi1pZCI6IjZkZTEwNjZhM2YzODQ2MTJhMjc3NzRmODFmMjY5MzcxIiwicHJvZHVjdC1pZCI6IlNwZWVjaFNlcnZpY2VzLkYwIiwiY29nbml0aXZlLXNlcnZpY2VzLWVuZHBvaW50IjoiaHR0cHM6Ly9hcGkuY29nbml0aXZlLm1pY3Jvc29mdC5jb20vaW50ZXJuYWwvdjEuMC8iLCJhenVyZS1yZXNvdXJjZS1pZCI6Ii9zdWJzY3JpcHRpb25zLzk3OWI0ODI1LTI1YTItNGE0NC1iNDViLTllYzE1ZmIzZDYwYy9yZXNvdXJjZUdyb3Vwcy9teUxlYXJuaW5nR3JvdXAvcHJvdmlkZXJzL01pY3Jvc29mdC5Db2duaXRpdmVTZXJ2aWNlcy9hY2NvdW50cy9sZWFybi1zcGVlY2hTZXJ2aWNlcyIsInNjb3BlIjoic3BlZWNoc2VydmljZXMiLCJhdWQiOiJ1cm46bXMuc3BlZWNoc2VydmljZXMuZWFzdGFzaWEiLCJleHAiOjE2NjY4NTIzNzUsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.NAY3G22dIH0LxeYHiZMi8rjRy1CBa9L7y16FCWDsgz0"
+    );
+
+    var file = "AIdemosite/Wav_868kb.wav";
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: file,
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://eastasia.stt.speech.microsoft.com/speech/recognition/interactive/cognitiveservices/v1?language=en-US",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  }
+
+  // recorder.js
+</script>
+ -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Record Audio Test</title>
+    <title>Microsoft Cognitive Services Speech SDK JavaScript Quickstart</title>
+    <meta charset="utf-8" />
   </head>
-  <body>
-    <h1>Audio Recording Test</h1>
-    <p>Talk for 3 seconds, then you will hear your recording played back</p>
+  <body
+    style="
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+    "
+  >
+    <!-- <uidiv> -->
+    <div id="warning">
+      <h1 style="font-weight: 500">
+        Speech Recognition Speech SDK not found
+        (microsoft.cognitiveservices.speech.sdk.bundle.js missing).
+      </h1>
+    </div>
 
-    <button id="action" onclick="handleAction()">Start recording...</button>
+    <div id="content" style="display: none">
+      <table width="100%">
+        <tr>
+          <td></td>
+          <td>
+            <h1 style="font-weight: 500">
+              Microsoft Cognitive Services Speech SDK JavaScript Quickstart
+            </h1>
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <button id="startRecognizeOnceAsyncButton">
+              Start recognition
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">Results</td>
+          <td>
+            <textarea
+              id="phraseDiv"
+              style="display: inline-block; width: 500px; height: 200px"
+            ></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- </uidiv> -->
+
+    <!-- <speechsdkref> -->
+    <!-- Speech SDK reference sdk. -->
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <!-- </speechsdkref> -->
+
+    <!-- <quickstartcode> -->
+    <!-- Speech SDK USAGE -->
+    <script src="{% static 'js/speech_service.js'%}">
+      // status fields and start button in UI
+    </script>
+    <!-- </quickstartcode> -->
   </body>
 </html>
-
-<div style="padding-top: 50px"></div>
-<form method="post" class="container-fluid">
-  {% csrf_token %}
-  <!-- Speech to text -->
-  <label class="form-label">Speach Language:</label>
-  <div class="input-group mb-3">
-    <select
-      class="btn btn-outline-primary"
-      aria-label="Default select example"
-      name="language-speach"
-    >
-      <option selected value="en-US">English</option>
-      <option value="zh-TW">中文</option>
-      <option value="es-ES">Español</option>
-      <option value="fr-FR">Français</option>
-      <option value="de-DE">Deutsch</option>
-      <option value="ja-JP">日本語</option>
-    </select>
-    <button
-      type="button"
-      class="btn btn-outline-secondary"
-      name="btn_s2t"
-      id="btn_s2t"
-    >
-      Speech to text2
-    </button>
-  </div>
-  <label class="form-label">Translate to:</label>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">中文</span>
-    <input type="text" class="form-control" value="{{zh}}" name="s2t" />
-  </div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">English</span>
-    <input type="text" class="form-control" value="{{en}}" name="s2t" />
-  </div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">Español</span>
-    <input type="text" class="form-control" value="{{es}}" name="s2t" />
-  </div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">Français</span>
-    <input type="text" class="form-control" value="{{fr}}" name="s2t" />
-  </div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">Deutsch</span>
-    <input type="text" class="form-control" value="{{de}}" name="s2t" />
-  </div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="addon-wrapping">日本語</span>
-    <input type="text" class="form-control" value="{{ja}}" name="s2t" />
-  </div>
-</form>
-<script>
-  document.getElementById('btn_s2t').onclick = function() {
-    console.log("btn test!!")
-    getLocalStream();
-  }
-  function getLocalStream() {
-      navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
-          window.localStream = stream;
-          window.localAudio.srcObject = stream;
-          window.localAudio.autoplay = true;
-      }).catch((err) => {
-          console.error(`you got an error: ${err}`)
-      });
-  }
-
-  // const recordAudio = () =>
-  //   new Promise(async (resolve) => {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  //     const mediaRecorder = new MediaRecorder(stream);
-  //     const audioChunks = [];
-
-  //     mediaRecorder.addEventListener("dataavailable", (event) => {
-  //       audioChunks.push(event.data);
-  //     });
-
-  //     const start = () => mediaRecorder.start();
-
-  //     const stop = () =>
-  //       new Promise((resolve) => {
-  //         mediaRecorder.addEventListener("stop", () => {
-  //           const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
-  //           const audioUrl = URL.createObjectURL(audioBlob);
-  //           const audio = new Audio(audioUrl);
-  //           const play = () => audio.play();
-  //           resolve({ audioBlob, audioUrl, play });
-  //         });
-
-  //         mediaRecorder.stop();
-  //       });
-
-  //     resolve({ start, stop });
-  //   });
-
-  // const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
-
-  // const handleAction = async () => {
-  //   const recorder = await recordAudio();
-  //   const actionButton = document.getElementById("action");
-  //   actionButton.disabled = true;
-  //   recorder.start();
-  //   await sleep(3000);
-  //   const audio = await recorder.stop();
-  //   audio.play();
-  //   await sleep(3000);
-  //   actionButton.disabled = false;
-  // };
-</script>
 {% endblock %}

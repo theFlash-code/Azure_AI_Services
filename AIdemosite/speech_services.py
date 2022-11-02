@@ -15,12 +15,15 @@ REGION='eastasia'
 
 def recognize_from_microphone(language):
     speech_config = speechsdk.SpeechConfig(subscription=SR_SUB_KEY, region=REGION)
+    print(speech_config.subscription_key)
     speech_config.speech_recognition_language=language
 
-    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
-    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+    # audio_input = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    audio_input = speechsdk.AudioConfig(filename="audiotest.wav")
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_input)
 
     print("Speak into your microphone.")
+    print("idk")
     speech_recognition_result = speech_recognizer.recognize_once_async().get()
 
     if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
@@ -118,6 +121,30 @@ def translate_from_speech(language):
             print("Error details: {}".format(cancellation_details.error_details))
             print("Did you set the speech resource key and region values?")
 
+def from_file(language):
+    speech_config = speechsdk.SpeechConfig(subscription=SR_SUB_KEY, region=REGION)
+    speech_config.speech_recognition_language=language
+
+    audio_config = speechsdk.audio.AudioConfig(filename="audiotest.wav")
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+    print("Speak into your microphone.")
+    print("idk")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
+
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+        return format(speech_recognition_result.text)
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
+
+
 def translate(text, translate_from, translate_to):
     # Add your key and endpoint
     key = TR_SUB_KEY
@@ -156,3 +183,5 @@ def translate(text, translate_from, translate_to):
     response = request.json()
     translation = response[0]['translations'][0]['text']
     return translation
+
+recognize_from_microphone('en')

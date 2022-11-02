@@ -46,7 +46,7 @@ def speech_services(response):
         print()
     if response.method == 'POST' and 'btn_s2t' in response.POST:
         # Speech-to-text
-        from .speech_services import recognize_from_microphone
+        from .speech_services import from_file, recognize_from_microphone
         language_s2t = response.POST.get('language-s2t')
         txt = recognize_from_microphone(language_s2t)
         
