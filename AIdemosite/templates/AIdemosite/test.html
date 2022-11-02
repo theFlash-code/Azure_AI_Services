@@ -80,69 +80,38 @@
   // recorder.js
 </script>
  -->
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Microsoft Cognitive Services Speech SDK JavaScript Quickstart</title>
-    <meta charset="utf-8" />
-  </head>
-  <body
-    style="
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 13px;
-    "
+<div style="padding-top: 50px"></div>
+<h2>Speech-to-text</h2>
+<div class="input-group mb-3">
+  <select
+    class="btn btn-outline-primary"
+    aria-label="Default select example"
+    id="lang_slct"
   >
-    <!-- <uidiv> -->
-    <div id="warning">
-      <h1 style="font-weight: 500">
-        Speech Recognition Speech SDK not found
-        (microsoft.cognitiveservices.speech.sdk.bundle.js missing).
-      </h1>
-    </div>
+    <option selected value="en-US">English</option>
+    <option value="zh-TW">中文</option>
+    <option value="es-ES">Español</option>
+    <option value="fr-FR">Français</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="ja-JP">日本語</option>
+  </select>
+  <button type="submit" class="btn btn-outline-secondary" id="btn_s2t">
+    Speech to text
+  </button>
+</div>
+<div class="input-group">
+  <label for="">Result</label>
+</div>
+<div class="input-group mb-3">
+  <textarea
+    id="result"
+    style="display: inline-block; width: 500px; height: 200px"
+  ></textarea>
+</div>
 
-    <div id="content" style="display: none">
-      <table width="100%">
-        <tr>
-          <td></td>
-          <td>
-            <h1 style="font-weight: 500">
-              Microsoft Cognitive Services Speech SDK JavaScript Quickstart
-            </h1>
-          </td>
-        </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <button id="startRecognizeOnceAsyncButton">
-              Start recognition
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">Results</td>
-          <td>
-            <textarea
-              id="phraseDiv"
-              style="display: inline-block; width: 500px; height: 200px"
-            ></textarea>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!-- </uidiv> -->
-
-    <!-- <speechsdkref> -->
-    <!-- Speech SDK reference sdk. -->
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-    <!-- </speechsdkref> -->
-
-    <!-- <quickstartcode> -->
-    <!-- Speech SDK USAGE -->
-    <script src="{% static 'js/speech_service.js'%}">
-      // status fields and start button in UI
-    </script>
-    <!-- </quickstartcode> -->
+    <script src="{% static 'js/speech_service.js'%}"></script>
   </body>
 </html>
 {% endblock %}
