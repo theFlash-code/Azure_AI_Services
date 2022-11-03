@@ -1,4 +1,4 @@
-{% extends 'AIdemosite/base.html' %} {% block content %}
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static%}
 
 <div style="padding-top: 50px"></div>
 <form method="post" class="container-fluid">
@@ -9,7 +9,7 @@
     <select
       class="btn btn-outline-primary"
       aria-label="Default select example"
-      name="language-speach"
+      id="lang_slct"
     >
       <option selected value="en-US">English</option>
       <option value="zh-TW">中文</option>
@@ -18,56 +18,73 @@
       <option value="de-DE">Deutsch</option>
       <option value="ja-JP">日本語</option>
     </select>
-    <button
-      type="submit"
-      class="btn btn-outline-secondary"
-      name="btn_s2t"
-      id="btn_s2t"
-    >
+    <button type="submit" class="btn btn-outline-secondary" id="btn_translate">
       Speech to text
     </button>
-    <!-- <button class="btn btn-outline-secondary" name="btn_s2t" id="btn_s2t">
-      Speech to text2
-    </button> -->
   </div>
   <label class="form-label">Translate to:</label>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">中文</span>
-    <input type="text" class="form-control" value="{{zh}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{zh}}"
+      name="s2t"
+      id="output_zh"
+    />
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">English</span>
-    <input type="text" class="form-control" value="{{en}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{en}}"
+      name="s2t"
+      id="output_en"
+    />
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">Español</span>
-    <input type="text" class="form-control" value="{{es}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{es}}"
+      name="s2t"
+      id="output_es"
+    />
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">Français</span>
-    <input type="text" class="form-control" value="{{fr}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{fr}}"
+      name="s2t"
+      id="output_fr"
+    />
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">Deutsch</span>
-    <input type="text" class="form-control" value="{{de}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{de}}"
+      name="s2t"
+      id="output_de"
+    />
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="addon-wrapping">日本語</span>
-    <input type="text" class="form-control" value="{{ja}}" name="s2t" />
+    <input
+      type="text"
+      class="form-control"
+      value="{{ja}}"
+      name="s2t"
+      id="output_ja"
+    />
   </div>
 </form>
-<!-- <script>
-    document.getElementById('img-modal-btn').onclick = function() {
-        getLocalStream();
-    }
-    function getLocalStream() {
-        navigator.mediaDevices.getUserMedia({video: false, audio: true}).then((stream) => {
-            window.localStream = stream;
-            window.localAudio.srcObject = stream;
-            window.localAudio.autoplay = true;
-        }).catch((err) => {
-            console.error(`you got an error: ${err}`)
-        });
-    }
-</script> -->
+
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="{% static 'js/speech_translate.js'%}"></script>
 {% endblock %}

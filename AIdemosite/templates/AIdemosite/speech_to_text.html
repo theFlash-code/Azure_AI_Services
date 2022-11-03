@@ -1,0 +1,34 @@
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+<div style="padding-top: 50px"></div>
+<h2>Speech-to-text</h2>
+<div class="input-group mb-3">
+  <select
+    class="btn btn-outline-primary"
+    aria-label="Default select example"
+    id="lang_slct"
+  >
+    <option selected value="en-US">English</option>
+    <option value="zh-TW">中文</option>
+    <option value="es-ES">Español</option>
+    <option value="fr-FR">Français</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="ja-JP">日本語</option>
+  </select>
+  <button type="submit" class="btn btn-outline-secondary" id="btn_s2t">
+    Speech to text
+  </button>
+</div>
+<div class="input-group">
+  <label for="">Result</label>
+</div>
+<div class="input-group mb-3">
+  <textarea
+    id="result"
+    style="display: inline-block; width: 500px; height: 200px"
+  ></textarea>
+</div>
+
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="{% static 'js/speech_to_text.js'%}"></script>
+
+{% endblock %}

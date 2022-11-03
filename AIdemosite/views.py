@@ -39,6 +39,12 @@ code_to_language = {
 def index(response):
     return render(response, "AIdemosite/home.html", {})
 
+def speech_to_text(response):
+    return render(response, "AIdemosite/speech_to_text.html", {})
+
+def text_to_speech(response):
+    return render(response, "AIdemosite/text_to_speech.html", {})
+
 def speech_services(response):
     if response.method == 'POST':
         # print(response.POST)

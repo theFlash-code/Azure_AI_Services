@@ -1,117 +1,258 @@
 {% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
-<!-- 
-<button
-  id="record_btn"
-  class="btn btn-outline-secondary"
-  onclick="startRecord()"
->
-  Start record
-</button>
-<button id="stop__btn" class="btn btn-outline-secondary" onclick="stopRecord()">
-  Stop recording
-</button>
-<div class="audio">
-  <audio controls="controls" id="audio"></audio>
-</div>
-
-<script src="{% static 'js/recorder.js'%}"></script>
-<script>
-  var recorder;
-  var stream;
-  var url;
-  function startRecord() {
-    var device = navigator.mediaDevices.getUserMedia({ audio: true });
-    var items = [];
-    device.then((stream) => {
-      recorder = new MediaRecorder(stream);
-      this.stream = stream;
-      recorder.ondataavailable = (e) => {
-        items.push(e.data);
-        if (recorder.state == "inactive") {
-          var blob = new Blob(items, { type: "audio/wav" });
-          var audio = document.getElementById("audio");
-          url = URL.createObjectURL(blob);
-          audio.setAttribute("src", url);
-        }
-      };
-      recorder.start();
-    });
-  }
-  function stopRecord() {
-    recorder.stop();
-    stream.getTracks().forEach(function (track) {
-      if (track.readyState == "live" && track.kind === "audio") {
-        track.stop();
-      }
-    });
-    recorder.exportWAV(function (e) {
-      recorder.clear();
-      Recorder.forceDownload(e, "audio.wav");
-    });
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "Ocp-Apim-Subscription-Key",
-      "ac1b8fe3034344a787dc45b06243f51b"
-    );
-    myHeaders.append("Content-Type", "audio/wav");
-    myHeaders.append(
-      "Authorization",
-      "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJyZWdpb24iOiJlYXN0YXNpYSIsInN1YnNjcmlwdGlvbi1pZCI6IjZkZTEwNjZhM2YzODQ2MTJhMjc3NzRmODFmMjY5MzcxIiwicHJvZHVjdC1pZCI6IlNwZWVjaFNlcnZpY2VzLkYwIiwiY29nbml0aXZlLXNlcnZpY2VzLWVuZHBvaW50IjoiaHR0cHM6Ly9hcGkuY29nbml0aXZlLm1pY3Jvc29mdC5jb20vaW50ZXJuYWwvdjEuMC8iLCJhenVyZS1yZXNvdXJjZS1pZCI6Ii9zdWJzY3JpcHRpb25zLzk3OWI0ODI1LTI1YTItNGE0NC1iNDViLTllYzE1ZmIzZDYwYy9yZXNvdXJjZUdyb3Vwcy9teUxlYXJuaW5nR3JvdXAvcHJvdmlkZXJzL01pY3Jvc29mdC5Db2duaXRpdmVTZXJ2aWNlcy9hY2NvdW50cy9sZWFybi1zcGVlY2hTZXJ2aWNlcyIsInNjb3BlIjoic3BlZWNoc2VydmljZXMiLCJhdWQiOiJ1cm46bXMuc3BlZWNoc2VydmljZXMuZWFzdGFzaWEiLCJleHAiOjE2NjY4NTIzNzUsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.NAY3G22dIH0LxeYHiZMi8rjRy1CBa9L7y16FCWDsgz0"
-    );
-
-    var file = "AIdemosite/Wav_868kb.wav";
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: file,
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://eastasia.stt.speech.microsoft.com/speech/recognition/interactive/cognitiveservices/v1?language=en-US",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  }
-
-  // recorder.js
-</script>
- -->
-<div style="padding-top: 50px"></div>
-<h2>Speech-to-text</h2>
-<div class="input-group mb-3">
-  <select
-    class="btn btn-outline-primary"
-    aria-label="Default select example"
-    id="lang_slct"
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Microsoft Cognitive Services Speech SDK JavaScript Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body
+    style="
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+    "
   >
-    <option selected value="en-US">English</option>
-    <option value="zh-TW">中文</option>
-    <option value="es-ES">Español</option>
-    <option value="fr-FR">Français</option>
-    <option value="de-DE">Deutsch</option>
-    <option value="ja-JP">日本語</option>
-  </select>
-  <button type="submit" class="btn btn-outline-secondary" id="btn_s2t">
-    Speech to text
-  </button>
-</div>
-<div class="input-group">
-  <label for="">Result</label>
-</div>
-<div class="input-group mb-3">
-  <textarea
-    id="result"
-    style="display: inline-block; width: 500px; height: 200px"
-  ></textarea>
-</div>
+    <div id="warning">
+      <h1 style="font-weight: 500">
+        Speech Recognition Speech SDK not found
+        (microsoft.cognitiveservices.speech.sdk.bundle.js missing).
+      </h1>
+    </div>
 
+    <div id="content" style="display: none">
+      <table width="100%">
+        <tr>
+          <td></td>
+          <td>
+            <h1 style="font-weight: 500">
+              Microsoft Cognitive Services Speech SDK JavaScript Quickstart
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <a
+              href="https://docs.microsoft.com/azure/cognitive-services/speech-service/get-started"
+              target="_blank"
+              >Subscription</a
+            >:
+          </td>
+          <td>
+            <input
+              id="subscriptionKey"
+              type="text"
+              size="40"
+              value="subscription"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Region</td>
+          <td>
+            <input
+              id="serviceRegion"
+              type="text"
+              size="40"
+              value="YourServiceRegion"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Source Language</td>
+          <td>
+            <select id="languageSourceOptions">
+              <option value="ar-EG">Arabic - EG</option>
+              <option selected="selected" value="de-DE">German - DE</option>
+              <option value="en-US">English - US</option>
+              <option value="es-ES">Spanish - ES</option>
+              <option value="fi-FI">Finnish - FI</option>
+              <option value="fr-FR">French - FR</option>
+              <option value="hi-IN">Hindi - IN</option>
+              <option value="it-IT">Italian - IT</option>
+              <option value="ja-JP">Japanese - JP</option>
+              <option value="ko-KR">Korean - KR</option>
+              <option value="pl-PL">Polish - PL</option>
+              <option value="pt-BR">Portuguese - BR</option>
+              <option value="ru-RU">Russian - RU</option>
+              <option value="sv-SE">Swedish - SE</option>
+              <option value="zh-CN">Chinese - Simplified</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Target Language 1</td>
+          <td>
+            <select id="languageTargetOptions1">
+              <option value="ar">Arabic</option>
+              <option selected="selected" value="de">German</option>
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fi">Finnish</option>
+              <option value="fr">French</option>
+              <option value="hi">Hindi</option>
+              <option value="it">Italian</option>
+              <option value="ja">Japanese</option>
+              <option value="ko">Korean</option>
+              <option value="pl">Polish</option>
+              <option value="pt">Portuguese</option>
+              <option value="ru">Russian</option>
+              <option value="sv">Swedish</option>
+              <option value="zh-Hans">Chinese - Simplified</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">Target Language 2</td>
+          <td>
+            <select id="languageTargetOptions2">
+              <option value="ar">Arabic</option>
+              <option selected="selected" value="de">German</option>
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fi">Finnish</option>
+              <option value="fr">French</option>
+              <option value="hi">Hindi</option>
+              <option value="it">Italian</option>
+              <option value="ja">Japanese</option>
+              <option value="ko">Korean</option>
+              <option value="pl">Polish</option>
+              <option value="pt">Portuguese</option>
+              <option value="ru">Russian</option>
+              <option value="sv">Swedish</option>
+              <option value="zh-Hans">Chinese - Simplified</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button id="startRecognizeOnceAsyncButton">
+              Start recognition
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">Language 1 Translation</td>
+          <td>
+            <textarea
+              id="phraseDiv1"
+              style="display: inline-block; width: 500px; height: 150px"
+            ></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">Language 2 Translation</td>
+          <td>
+            <textarea
+              id="phraseDiv2"
+              style="display: inline-block; width: 500px; height: 150px"
+            ></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
 
+    <!-- Speech SDK reference sdk. -->
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-    <script src="{% static 'js/speech_service.js'%}"></script>
+
+    <!-- Speech SDK USAGE -->
+    <script>
+      // status fields and start button in UI
+      var resultsDivs;
+      var startRecognizeOnceAsyncButton;
+
+      // subscription key and region for speech services.
+      var subscriptionKey, serviceRegion, languageTargetOptions;
+      var SpeechSDK;
+      var recognizer;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        startRecognizeOnceAsyncButton = document.getElementById(
+          "startRecognizeOnceAsyncButton"
+        );
+        subscriptionKey = document.getElementById("subscriptionKey");
+        serviceRegion = document.getElementById("serviceRegion");
+        languageSourceOptions = document.getElementById(
+          "languageSourceOptions"
+        );
+        languageTargetOptions = [
+          document.getElementById("languageTargetOptions1"),
+          document.getElementById("languageTargetOptions2"),
+        ];
+        resultsDivs = [
+          document.getElementById("phraseDiv1"),
+          document.getElementById("phraseDiv2"),
+        ];
+
+        startRecognizeOnceAsyncButton.addEventListener("click", function () {
+          startRecognizeOnceAsyncButton.disabled = true;
+          resultsDivs.forEach(function (elem) {
+            elem.innerHTML = "";
+          });
+
+          if (
+            subscriptionKey.value === "" ||
+            subscriptionKey.value === "subscription"
+          ) {
+            alert(
+              "Please enter your Microsoft Cognitive Services Speech subscription key!"
+            );
+            startRecognizeOnceAsyncButton.disabled = false;
+            return;
+          }
+          var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(
+            subscriptionKey.value,
+            serviceRegion.value
+          );
+
+          speechConfig.speechRecognitionLanguage = languageSourceOptions.value;
+          let languageKeys = {};
+          languageTargetOptions.forEach(function (langElem, index) {
+            let language = langElem.value;
+            languageKeys[language] = resultsDivs[index];
+            speechConfig.addTargetLanguage(language);
+          });
+
+          var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+          recognizer = new SpeechSDK.TranslationRecognizer(
+            speechConfig,
+            audioConfig
+          );
+
+          recognizer.recognizeOnceAsync(
+            function (result) {
+              startRecognizeOnceAsyncButton.disabled = false;
+              if (result.reason === SpeechSDK.ResultReason.TranslatedSpeech) {
+                for (var key in languageKeys) {
+                  let translation = result.translations.get(key);
+                  window.console.log(key + ": " + translation);
+                  languageKeys[key].innerHTML += translation;
+                }
+              }
+
+              recognizer.close();
+              recognizer = undefined;
+            },
+            function (err) {
+              startRecognizeOnceAsyncButton.disabled = false;
+              resultsDiv[0].innerHTML += err;
+              window.console.log(err);
+
+              recognizer.close();
+              recognizer = undefined;
+            }
+          );
+        });
+
+        if (!!window.SpeechSDK) {
+          SpeechSDK = window.SpeechSDK;
+          startRecognizeOnceAsyncButton.disabled = false;
+
+          document.getElementById("content").style.display = "block";
+          document.getElementById("warning").style.display = "none";
+        }
+      });
+    </script>
   </body>
 </html>
+
 {% endblock %}

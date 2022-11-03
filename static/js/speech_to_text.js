@@ -1,7 +1,6 @@
 var text_result;
 var btn_s2t;
 
-// subscription key and region for speech services.
 var subscriptionKey = "ac1b8fe3034344a787dc45b06243f51b",
   serviceRegion = "eastasia";
 var SpeechSDK;
@@ -9,10 +8,6 @@ var recognizer;
 
 document.addEventListener("DOMContentLoaded", function () {
   btn_s2t = document.getElementById("btn_s2t");
-  //   subscriptionKey = document.getElementById("subscriptionKey");
-  //   serviceRegion = document.getElementById("serviceRegion");
-  subscriptionKey = "ac1b8fe3034344a787dc45b06243f51b";
-  serviceRegion = "eastasia";
   text_result = document.getElementById("result");
 
   btn_s2t.addEventListener("click", function () {
@@ -57,8 +52,5 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!!window.SpeechSDK) {
     SpeechSDK = window.SpeechSDK;
     btn_s2t.disabled = false;
-
-    // document.getElementById("content").style.display = "block";
-    // document.getElementById("warning").style.display = "none";
   }
 });
