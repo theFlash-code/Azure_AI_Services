@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
       subscriptionKey,
       serviceRegion
     );
-
+    speechConfig.speechSynthesisVoiceName =
+      document.getElementById("lang_slct").value;
     synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig);
     console.log(inputDiv);
     let inputText = inputDiv.value;
