@@ -1,0 +1,66 @@
+{% extends 'AIdemosite/base.html' %} {% block content %}
+
+<div style="padding-top: 50px"></div>
+<h2>Sentiment Analyze</h2>
+<form method="post" class="container-fluid">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="lang_slct"
+    >
+      <option value="en">English</option>
+      <option value="zh-hant">中文</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+  <div class="input-groupt mb-3">
+    <textarea
+      name="input_text"
+      style="display: inline-block; width: 500px; height: 200px"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <button type="submit" class="btn btn-outline-secondary" name="btn-analyze">
+      Analyze
+    </button>
+  </div>
+</form>
+{% if flag == True%}
+<div style="padding-top: 30px"></div>
+<h4>Input: {{ text }}</h4>
+<label>Sentiment:</label>
+<div class="input-group">
+  <button class="btn btn-primary" disabled="disabled">{{ sentiment }}</button>
+</div>
+<label>Confidence Score</label>
+<div class="input-group mb-3">
+  {% for key, value in confidence.items %}
+  <button class="btn btn-success" disabled="disabled">
+    {{ key }}: {{ value }}
+  </button>
+  {% endfor %}
+</div>
+{% for sen in sentences %}
+<div style="padding-top: 30px"></div>
+<h3>Sentences:</h3>
+<h4>sentence: {{ sen.text }}</h4>
+<label>Sentiment:</label>
+<div class="input-group">
+  <button class="btn btn-primary" disabled="disabled">
+    {{ sen.sentiment }}
+  </button>
+</div>
+<label>Confidence Score</label>
+<div class="input-group mb-3">
+  {% for key, value in sen.confidenceScores.items %}
+  <button class="btn btn-success" disabled="disabled">
+    {{ key }}: {{ value }}
+  </button>
+  {% endfor %}
+</div>
+{% endfor %} {% endif %} {% endblock %}

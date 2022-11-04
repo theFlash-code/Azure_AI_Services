@@ -45,6 +45,17 @@ def speech_to_text(response):
 def text_to_speech(response):
     return render(response, "AIdemosite/text_to_speech.html", {})
 
+def speech_translate(response):
+
+    if response.method == 'POST':
+        from .speech_services import translate_from_speech
+        language = response.POST.get('language-speach')
+        translate_result = translate_from_speech(language)
+        
+        return render(response, "AIdemosite/speech_translate.html", {'zh':translate_result['zh-Hant'], 'en':translate_result['en'], 'es':translate_result['es'], 'fr':translate_result['fr'], 'de':translate_result['de'], 'ja':translate_result['ja']})
+    else:
+        return render(response, "AIdemosite/speech_translate.html", {})
+
 def speech_services(response):
     if response.method == 'POST':
         # print(response.POST)
@@ -85,18 +96,24 @@ def speech_services(response):
 
         return render(response, "AIdemosite/speech_services.html", {"s2t":s2t, "t2s":t2s, "translate_input":translate_input, "translate_result":translate_result})
     else:
-        return render(response, "AIdemosite/speech_services.html", {"s2t":"Click the button to use the speech to text service", "t2s":"Enter the text here", "translate_input":"Enter the text you want to translate"})
+        return render(response, "AIdemosite/speech_services.html", {"s2t":"Click the button to use the speech to text service", "t2s":"Enter the text here"})
 
-def speech_translate(response):
-
-    if response.method == 'POST':
-        from .speech_services import translate_from_speech
-        language = response.POST.get('language-speach')
-        translate_result = translate_from_speech(language)
+def language_sentiment(response):
+    # print('btn-analyze' in response.POST)
+    if response.method == 'POST' :
+        from .language_services import sentiment_analyze
+        text = response.POST.get('input_text')
+        lan = response.POST.get('lang_slct')
+        result = sentiment_analyze(text, lan)
         
-        return render(response, "AIdemosite/speech_translate.html", {'zh':translate_result['zh-Hant'], 'en':translate_result['en'], 'es':translate_result['es'], 'fr':translate_result['fr'], 'de':translate_result['de'], 'ja':translate_result['ja']})
-    else:
-        return render(response, "AIdemosite/speech_translate.html", {})
+        sentiment = result['documents'][0]['sentiment']
+        confidence = result['documents'][0]['confidenceScores']
+        sentences = result['documents'][0]['sentences']
+        print(sentences)
+
+        return render(response, "AIdemosite/language_sentiment.html", {"text":text, "sentiment":sentiment, "confidence":confidence, "sentences":sentences, "flag":True})
+
+    return render(response, "AIdemosite/language_sentiment.html", {})
 
 def image_description(response):
     

@@ -1,11 +1,11 @@
-{% extends 'AIdemosite/base.html' %}
-{% block content %}
+{% extends 'AIdemosite/base.html' %} {% block content %}
 
 <div style="padding-top: 50px"></div>
+<h2>Translator</h2>
 <form method="post" class="container-fluid">
-    {% csrf_token %}
-    <!-- Speech to text -->
-    <div class="input-group mb-3">
+  {% csrf_token %}
+  <!-- Speech to text -->
+  <!-- <div class="input-group mb-3">
         <select class="btn btn-outline-primary" aria-label="Default select example" name="language-s2t">
             <option selected value="en-US">English</option>
             <option value="zh-TW">中文</option>
@@ -16,33 +16,62 @@
         </select>
         <button type="submit" class="btn btn-outline-secondary" name="btn_s2t">Speech to text</button>
         <input type="text" class="form-control " value="{{s2t}}" name="s2t">
-    </div>
+    </div> -->
 
-    <!-- translation -->
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" value="{{translate_input}}" name="translate_from_txt">
-        <select class="btn btn-outline-primary" aria-label="Default select example" name="translate_from_lan">
-            <option selected value="en">English</option>
-            <option value="zh">中文</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="ja">日本語</option>
-        </select>
-        <select class="btn btn-outline-primary" aria-label="Default select example" name="translate_to_lan">
-            <option value="en">English</option>
-            <option selected value="zh-hant">中文</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="ja">日本語</option>
-        </select>
-        <input type="text" class="form-control" value="{{translate_result}}" name="translate_result">
-        <button type="submit" class="btn btn-outline-secondary" name="btn-translate">Translate</button>
-    </div>
-      
-    <!-- Text to speech -->
-    <div class="input-group mb-3">
+  <!-- translation -->
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="translate_from_lan"
+    >
+      <option selected value="en">English</option>
+      <option value="zh">中文</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+    </select>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter the text you want to translate here"
+      value="{{translate_input}}"
+      name="translate_from_txt"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="translate_to_lan"
+    >
+      <option value="en">English</option>
+      <option selected value="zh-hant">中文</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+    </select>
+    <input
+      type="text"
+      class="form-control"
+      value="{{translate_result}}"
+      name="translate_result"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <button
+      type="submit"
+      class="btn btn-outline-secondary"
+      name="btn-translate"
+    >
+      Translate
+    </button>
+  </div>
+
+  <!-- Text to speech -->
+  <!-- <div class="input-group mb-3">
         <select class="btn btn-outline-primary" aria-label="Default select example" name="language-t2s">
             <option value="en-US-BrandonNeural">English</option>
             <option selected value="zh-TW-YunJheNeural">中文</option>
@@ -53,8 +82,7 @@
         </select>
         <input type="text" class="form-control" value="{{t2s}}" name="input_t2s">
         <button type="submit" class="btn btn-outline-secondary" name="btn_t2s">Text to speech</button>
-    </div>
-    
+    </div> -->
 </form>
 
 {% endblock %}
