@@ -1,7 +1,7 @@
 {% extends 'AIdemosite/base.html' %} {% block content %}
 
 <div style="padding-top: 50px"></div>
-<h2>Sentiment Analyze</h2>
+<h2>Key Phrases</h2>
 <form method="post" class="container-fluid">
   {% csrf_token %}
   <div class="input-group mb-3">
@@ -32,35 +32,15 @@
 </form>
 {% if flag == True%}
 <div style="padding-top: 30px"></div>
-<h4>【Input】 {{ text }}</h4>
-<label>Sentiment:</label>
-<div class="input-group">
-  <button class="btn btn-primary" disabled="disabled">{{ sentiment }}</button>
+<h4>【Input】 </h4>
+<div class="mb-3">
+    {{ text }}
 </div>
-<label>Confidence Score</label>
-<div class="input-group mb-3">
-  {% for key, value in confidence.items %}
-  <button class="btn btn-success" disabled="disabled">
-    {{ key }}: {{ value }}
-  </button>
-  {% endfor %}
-</div>
-<div style="padding-top: 30px"></div>
-<!-- <h3>Sentences:</h3> -->
-{% for sen in sentences %}
-<h4>【sentence {{sen.cnt}}】 {{ sen.text }}</h4>
-<label>Sentiment:</label>
-<div class="input-group">
-  <button class="btn btn-primary" disabled="disabled">
-    {{ sen.sentiment }}
-  </button>
-</div>
-<label>Confidence Score</label>
-<div class="input-group mb-3">
-  {% for key, value in sen.confidenceScores.items %}
-  <button class="btn btn-success" disabled="disabled">
-    {{ key }}: {{ value }}
-  </button>
-  {% endfor %}
-</div>
-{% endfor %} {% endif %} {% endblock %}
+<h4>Key Phrases:</h4>
+</br>
+<!-- <div class="input-group"> -->
+{% for phr in phrases %}
+<button class="btn btn-primary mb-3" disabled="disabled">{{ phr }}</button>
+{% endfor %}
+<!-- </div> -->
+{% endif %} {% endblock %}

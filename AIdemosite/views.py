@@ -109,11 +109,25 @@ def language_sentiment(response):
         sentiment = result['documents'][0]['sentiment']
         confidence = result['documents'][0]['confidenceScores']
         sentences = result['documents'][0]['sentences']
-        print(sentences)
+        cnt = 0
+        for sen in sentences:
+            cnt += 1
+            sen['cnt'] = cnt
 
         return render(response, "AIdemosite/language_sentiment.html", {"text":text, "sentiment":sentiment, "confidence":confidence, "sentences":sentences, "flag":True})
 
     return render(response, "AIdemosite/language_sentiment.html", {})
+
+def language_keyPhrases(response):
+    if response.method == 'POST' :
+        from .language_services import keyPhrases_analyze
+        text = response.POST.get('input_text')
+        lan = response.POST.get('lang_slct')
+        result = keyPhrases_analyze(text, lan)
+        phrases = result['documents'][0]['keyPhrases']
+        return render(response, "AIdemosite/language_keyPhrases.html", {"flag":True, "text":text, "phrases":phrases})
+
+    return render(response, "AIdemosite/language_keyPhrases.html", {})
 
 def image_description(response):
     
