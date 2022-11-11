@@ -13,6 +13,8 @@ urlpatterns = [
     path("face_detection/", views.face_detection, name="face_detection"),
     path("area_of_interest/", views.area_of_interest, name="area_of_interest"),
     path("read_text/", views.read_text, name="read_text"),
+    path("content_moderator/", views.content_moderator, name="content_moderator"),
     path("test/", views.test, name="test"),
-    path("api_instructions/", views.api_instruction, name="api_instructions")
+    path("api_instructions/", views.api_instruction, name="api_instructions"),
+    path("ms_ignite/", views.ms_ignite, name="ms_ignite")
 ]

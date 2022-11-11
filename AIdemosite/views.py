@@ -179,6 +179,19 @@ def read_text(response):
 
     return render(response, "AIdemosite/read_text.html", {})
 
+def content_moderator(response):
+    if response.method == 'POST' :
+        from .decision_services import content_moderator
+        text = response.POST.get('input_text')
+        result = content_moderator(text)
+        print(text)
+        print(result)
+        correct = result["AutoCorrectedText"]
+        print(correct)
+        return render(response, "AIdemosite/content_moderator.html", {"flag":True, "text":text, "result":result, "correct":correct})
+
+    return render(response, "AIdemosite/content_moderator.html", {})
+
 def test(response):
     
     return render(response, "AIdemosite/test.html", {})
@@ -191,3 +204,12 @@ def api_instruction(response):
         return render(response, "AIdemosite/api_instructions.html", {"language":language})
     
     return render(response, "AIdemosite/api_instructions.html", {})
+
+def ms_ignite(response):
+    if response.method == 'GET':
+        # print(response)
+        language = response.GET.get('language')
+        print(language)
+        return render(response, "AIdemosite/ms_ignite.html", {"language":language})
+    
+    return render(response, "AIdemosite/ms_ignite.html", {})

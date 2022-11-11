@@ -1,0 +1,83 @@
+{% extends 'AIdemosite/base.html' %} {% block content %}
+
+<div style="padding-top: 50px"></div>
+<h2>Content Moderator</h2>
+<form method="post" class="container-fluid">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="lang_slct"
+    >
+      <option value="en">English</option>
+      <!-- <option value="zh-hant">中文</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option> -->
+    </select>
+  </div>
+  <div class="input-groupt mb-3">
+    <textarea
+      name="input_text"
+      style="display: inline-block; width: 500px; height: 200px"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <button type="submit" class="btn btn-outline-secondary" name="btn-analyze">
+      Analyze
+    </button>
+  </div>
+</form>
+{% if flag == True%}
+<div style="padding-top: 30px"></div>
+
+<h4>【Original Text】</h4>
+<div class="mb-3">{{ result.OriginalText }}</div>
+<h4>【Auto Correction】</h4>
+<div class="mb-3">{{ correct }}</div>
+
+{% if result.Classification.ReviewRecommended == True %}
+<h4>【Inappropriate Content】</h4>
+<h6><b>Sensitive Words:</b> (word -index)</h6>
+
+{% for t in result.Terms %}
+<button class="btn btn-danger mb-3" disabled="disabled">
+  {{ t.Term }} -{{t.Index}}
+</button>
+{% endfor %}
+<div class="mb-3">
+  <ul>
+    <li>
+      <b>sexually explicit or adult content: </b
+      >{{result.Classification.Category1.Score}}
+    </li>
+  </ul>
+</div>
+<div class="mb-3">
+  <ul>
+    <li>
+      <b>sexually suggestive or mature content: </b>
+      {{result.Classification.Category2.Score}}
+    </li>
+  </ul>
+</div>
+<div class="mb-3">
+  <ul>
+    <li>
+      <b>offensive content: </b> {{result.Classification.Category3.Score}}
+    </li>
+  </ul>
+</div>
+{% endif %} {% if 'PII' in result %}
+<h4>【Personal Identifiable Information】</h4>
+{% for e in result.PII.Email %}
+<div class="mb-3">Email: {{ e.Detected }}</div>
+{% endfor %} {% for ipa in result.PII.IPA %}
+<div class="mb-3">{{ ipa.SubType }}: {{ ipa.Text }}</div>
+{% endfor %} {% for p in result.PII.Phone %}
+<div class="mb-3">Phone: [{{ p.CountryCode }}] {{ p.Text }}</div>
+{% endfor %} {% for a in result.PII.Address %}
+<div class="mb-3">Address: {{ a.Text}}</div>
+{% endfor %} {% endif %}{% endif %} {% endblock %}
