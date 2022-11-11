@@ -1,0 +1,333 @@
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/prism.css'%}" />
+<!-- <link rel="stylesheet" href="prism.css" /> -->
+
+<div style="padding-top: 50px"></div>
+
+<form method="get" class="container-fluid">
+  <div class="input-group">
+    <button class="btn btn-outline-secondary" name="language" value="en">
+      English
+    </button>
+    <button class="btn btn-outline-secondary" name="language" value="zh">
+      中文
+    </button>
+  </div>
+</form>
+<div style="padding-top: 20px"></div>
+
+{% if language == "en" or language == ""%}
+<h1 id="microsoft-ignite-2022">Microsoft Ignite 2022</h1>
+<!-- priority 1 -->
+<h2 id="ai">AI</h2>
+<h3 id="updates-for-cognitive-services">Updates for Cognitive Services</h3>
+<ul>
+  <li>
+    Azure OpenAI Service
+    <ul>
+      <li>DALL-E 2: generate images from text description</li>
+      <li>
+        Codex: Advanced code generation (debug its own code)
+        <a
+          href="https://www.youtube.com/watch?time_continue=15&amp;v=_3MBQm7GFIM&amp;feature=emb_title"
+          >Satya &amp; Sam Altman Conversion</a
+        >
+      </li>
+    </ul>
+  </li>
+  <li>
+    Azure Cognitive Service for Language
+    <ul>
+      <li>
+        Enhanced summarization capabilities with NLU &amp; NLG
+        <ul>
+          <li>abstractive document summarization</li>
+          <li>generic conversation summarization</li>
+        </ul>
+      </li>
+      <li>Expand language support</li>
+    </ul>
+  </li>
+  <li>
+    Computer Vision adding two services now in preview
+    <ul>
+      <li>
+        Image Analysis 4.0: An updated model designed to extract a wide variety
+        of visual features from images.
+      </li>
+      <li>Spatial Analysis</li>
+    </ul>
+  </li>
+  <li>
+    Azure Cognitive Service for speech
+    <ul>
+      <li>include new languages and emotions</li>
+      <li>include different tones of speech (like cheerful and sad)</li>
+      <li>
+        Embedded Speech enable companies to use speech services on their devices
+      </li>
+      <li>customization like lexicons to improce accuracy</li>
+      <li>improved audio processing of prebuilt voices</li>
+    </ul>
+  </li>
+</ul>
+<h3 id="azure-form-recognizer-preview">Azure Form Recognizer (preview)</h3>
+<ul>
+  <li>
+    Extract text, key-value pairsfrom documents or prebuilt models(invoices,
+    Receipts Business cards...)
+  </li>
+  <li>
+    <a href="https://formrecognizer.appliedai.azure.com/studio"
+      >Form Recognizer Studio</a
+    >
+  </li>
+</ul>
+<h3 id="azure-machine-learning-features">Azure Machine Learning Features</h3>
+<ul>
+  <li>
+    Azure Machine Learning registries(preview)
+    <ul>
+      <li>
+        enable customers to track model and data lineage across different
+        workspaces in different Azure subscriptions
+      </li>
+    </ul>
+  </li>
+  <li>
+    AI with PyTorch(preview)
+    <ul>
+      <li>Azure Container for PyTorch</li>
+      <li>Azure Data Science Vritual Machines for PyTorch</li>
+    </ul>
+  </li>
+  <li>Responsible AI dashboard</li>
+  <li>
+    Additional updates:
+    <ul>
+      <li>Automated machine learning features</li>
+      <li>Python SDK v2</li>
+      <li>Apache Spark pool integration</li>
+      <li>Hugging Face</li>
+    </ul>
+  </li>
+</ul>
+<p>
+  <a href="https://aka.ms/Ignite22/AutomationAI">Learn More</a> about this
+  update
+</p>
+<h3 id="project-bonsai-preview">Project Bonsai (預覽)</h3>
+<p>
+  Microsoft Bonsai Project is a low-code industrial AI development platform,
+  where engineers will be able to create
+  <strong>AI-powered automation</strong> without the need for an extensive
+  background in data science. Companies are using Project Bonsai to help improve
+  product quality and efficiency. Updates:
+</p>
+<ul>
+  <li>
+    <p>
+      Support for <strong>action masking</strong>, which will help to guarantee
+      valid behavior and speed up training by restricting the actions that AI
+      can take.
+    </p>
+    <details>
+      <summary>Action mask</summary>
+      <blockquote>
+        <p>
+          Action masks restrict the set of actions a learned concept can select,
+          based on the current state.
+        </p>
+      </blockquote>
+    </details>
+  </li>
+  <li>
+    <p>
+      <strong>Training from data with OfflineRL</strong> (Offline Reinforcement
+      Lerning)
+    </p>
+  </li>
+  <li>
+    <p>
+      <strong>Model-based training acceleration</strong> reduce time and
+      computational cost required to train a control policy on a key customer
+      use case.
+    </p>
+  </li>
+  <li>
+    <p>
+      <strong>Assessment 2.0</strong> offer rich analytical tools to help
+      customers evaluate automation performance.
+    </p>
+  </li>
+  <li>
+    <p><strong>Bonsai Samples in Azure Marketplace</strong></p>
+  </li>
+</ul>
+{% elif language == "zh" %}
+<h1 id="microsoft-ignite-2022">Microsoft Ignite 2022</h1>
+<h3>通過使用 Power Platform 自動化重複流程</h3>
+<div class="mb-3">
+  低代碼使人們和組織能夠在 IT
+  資源上以更低的成本做更多的事情，而且在革新日常流程方面，沒有什麼能比得上 Power
+  Platform。Power Platform
+  使任何人都可以輕鬆構建應用程序和網頁、自動化工作流、創建虛擬代理和分析數據。在
+  Microsoft Ignite，我們很高興能分享新的創新，這些創新使 AI
+  和低代碼對所有技能水平的用戶都更加直觀。 在 GitHub Copilot
+  的成功基礎上，我們將自然語言功能引入 Power
+  Automate，並提供對雲流的描述。現在，創客只需要用自然語言描述他們想要構建的流程，並生成相關流程的建議——然後創客添加連接以完成他們的流程。就這麼容易。在
+  AI Builder
+  中，反饋循環使您能夠標記和重新訓練文檔以提高準確性，現在還額外支持非結構化數據和文本識別以識別
+  164 種語言。
+  <a href="https://cloudblogs.microsoft.com/powerplatform/"
+    >Microsoft Power Platform Blog</a
+  >
+</div>
+<h3>使用 Azure 應用 AI 和認知服務快速輕鬆地將 AI 嵌入到業務應用程序中</h3>
+<div class="mb-3">
+  Azure 應用 AI 服務和 Azure
+  認知服務為開發人員提供了預構建和可自定義的模型，以快速部署智能應用程序。儘管在大流行期間人工智能的採用總體上有所增加，但它特別加速了諸如H&R
+  Block的文檔處理、Beiersdorf的知識挖掘以及Progressive
+  Insurance的銷售和服務場景中的自然語言理解等用例。這些公司正在使用 Azure AI
+  服務來消除關鍵業務流程中的摩擦，以幫助最終用戶和員工將時間和精力集中在有價值的工作上。
+  現在，客戶可以在Azure Form Recognizer
+  Studio中使用新的預構建合同模型來提取實體，例如各方和付款條款以進行下游處理。Azure
+  OpenAI 服務（預覽版）現在可以通過邀請訪問 DALL·E 2。Azure
+  語言認知服務現在提供擴展的摘要、聯絡中心功能、語言支持和 Language Studio
+  增強功能。
+  <a
+    href="https://blogs.microsoft.com/ai/from-hot-wheels-to-handling-content-how-brands-are-using-microsoft-ai-to-be-more-productive-and-imaginative/"
+    >Microsoft AI Blog</a
+  >
+</div>
+<h2 id="ai">AI人工智慧</h2>
+<h3 id="updates-for-cognitive-services">認知服務更新</h3>
+<ul>
+  <li>
+    Azure OpenAI 服務
+    <ul>
+      <li>DALL-E 2: 以文字敘述生成圖片</li>
+      <li>
+        Codex: 進階程式碼生成 (自行對程式碼除錯)
+        <a
+          href="https://www.youtube.com/watch?time_continue=15&amp;v=_3MBQm7GFIM&amp;feature=emb_title"
+          >Satya &amp; Sam Altman 的對談</a
+        >
+      </li>
+    </ul>
+  </li>
+  <li>
+    Azure 語言認知服務
+    <ul>
+      <li>
+        利用NLU &amp; NLG加強統整能力
+        <ul>
+          <li>抽象文件統整</li>
+          <li>通用對話統整</li>
+        </ul>
+      </li>
+      <li>增加支援語言</li>
+    </ul>
+  </li>
+  <li>
+    電腦視覺：新增兩個服務(預覽)
+    <ul>
+      <li>影像分析 4.0: 為在影像中提取更多視覺特徵的更新模型</li>
+      <li>空間分析</li>
+    </ul>
+  </li>
+  <li>
+    Azure 語音認知服務
+    <ul>
+      <li>加入新的語言和情緒</li>
+      <li>在合成聲音中加入不同聲調(如喜悅和悲傷)</li>
+      <li>嵌入式語音服務讓企業能夠在自家裝置中使用語音服務</li>
+      <li>客製化辭典可以提升準確率</li>
+      <li>強化預建聲音的音訊處理</li>
+    </ul>
+  </li>
+</ul>
+<h3 id="azure-form-recognizer-preview">Azure Form Recognizer (預覽)</h3>
+<ul>
+  <li>從文件或預建模型中(發票、收據和名片等)提取文字、鍵值對</li>
+  <li>
+    <a href="https://formrecognizer.appliedai.azure.com/studio"
+      >Form Recognizer Studio</a
+    >
+  </li>
+</ul>
+<h3 id="azure-machine-learning-features">Azure機器學習功能</h3>
+<ul>
+  <li>
+    Azure 機器學習註冊表（預覽版）
+    <ul>
+      <li>使客戶能夠在不同Azure訂閱中的不同工作區中追蹤模型和資料系譜</li>
+    </ul>
+  </li>
+  <li>
+    使用 PyTorch 的 AI（預覽版）
+    <ul>
+      <li>用於 PyTorch 的 Azure 容器</li>
+      <li>適用於 PyTorch 的 Azure 資料科學虛擬機</li>
+    </ul>
+  </li>
+  <li>負責任的人工智能儀表板</li>
+  <li>
+    其他更新：
+    <ul>
+      <li>自動化機器學習功能</li>
+      <li>Python SDK v2</li>
+      <li>
+        Apache Spark 池集成：現在處於預覽階段，它將使機器學習專業人員能夠在
+        Azure 機器學習平台內的 Spark 集群上快速迭代大規模的數據準備。
+      </li>
+      <li>
+        Hugging Face：將在 AzureML 託管端點上託管
+        BLOOM，這是世界上最大的開放多語言語言模型，具有 1760
+        億個參數，供社區測試性能。
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>
+  <a href="https://aka.ms/Ignite22/AutomationAI">了解更多</a>關於此更新的訊息
+</p>
+<h3 id="project-bonsai-preview">- Project Bonsai (preview)</h3>
+<p>
+  Microsoft Bonsai Project 是一個低代碼工業 AI
+  開發平台，工程師無需具備廣泛的資料科學背景即可創建<strong>AI驅動的自動化</strong>。公司正在使用
+  Project Bonsai 來幫助提高產品質量和效率。更新：
+</p>
+<ul>
+  <li>
+    <p>
+      支援動作遮罩，這將有助於通過限制AI可以採取的動作來保證有效行為並加快訓練速度。
+    </p>
+    <details>
+      <summary>動作遮罩</summary>
+      <blockquote>
+        <p>動作遮罩根據當前狀態限制學習概念可以選擇的動作集。</p>
+      </blockquote>
+    </details>
+  </li>
+  <li>
+    <p><strong>使用 OfflineRL從資料中訓練</strong> (離線強化學習)</p>
+  </li>
+  <li>
+    <p>
+      <strong>基於模型的訓練加速</strong>
+      減少在關鍵客戶訓練模型的時間和計算成本，。
+    </p>
+  </li>
+  <li>
+    <p>
+      <strong>評估 2.0</strong> 提供豐富的分析工具，幫助客戶評估自動化性能。
+    </p>
+  </li>
+  <li>
+    <p><strong>Bonsai Samples在Azure Marketplace中可以找到</strong></p>
+  </li>
+</ul>
+{% endif %}
+<div style="padding-top: 50px"></div>
+{% endblock %}
