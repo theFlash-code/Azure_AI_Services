@@ -1,24 +1,119 @@
-{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+{% extends 'AIdemosite/base.html' %} {% load static %} {% block sidebar %}
+<div class="flex-shrink-0 p-1 bg-white" style="width: 200px; position: -webkit-sticky; position: sticky; top:30px;">
+  <a
+    href="#"
+    class="align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+  >
+    <span class="d-flex justify-content-center fs-5 fw-semibold">
+      {% if language == "en" or language == ""%} API Instructions {% elif language == "zh" %} API指南 {% endif %}
+    </span>
+  </a>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1 text-center">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#home-collapse"
+        aria-expanded="false"
+      >
+        Computer Vision API
+      </button>
+      <div class="collapse" id="home-collapse" >
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#img_analysis" class="link-dark rounded">Image Analysis</a></li>
+          <li><a href="#request-url" class="link-dark rounded">Request URL</a></li>
+          <li><a href="#request-parameter" class="link-dark rounded">Request Parameter</a></li>
+          <li><a href="#header/body" class="link-dark rounded">header/body</a></li>
+          <li><a href="#example" class="link-dark rounded">example</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1 text-center">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse"
+        aria-expanded="false"
+      >
+        Speech Services API
+      </button>
+      <div class="collapse" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Overview</a></li>
+          <li><a href="#" class="link-dark rounded">Weekly</a></li>
+          <li><a href="#" class="link-dark rounded">Monthly</a></li>
+          <li><a href="#" class="link-dark rounded">Annually</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1 text-center">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#orders-collapse"
+        aria-expanded="false"
+      >
+        Language Services API
+      </button>
+      <div class="collapse" id="orders-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New</a></li>
+          <li><a href="#" class="link-dark rounded">Processed</a></li>
+          <li><a href="#" class="link-dark rounded">Shipped</a></li>
+          <li><a href="#" class="link-dark rounded">Returned</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1 text-center">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#account-collapse"
+        aria-expanded="false"
+      >
+        Decision Services API
+      </button>
+      <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New...</a></li>
+          <li><a href="#" class="link-dark rounded">Profile</a></li>
+          <li><a href="#" class="link-dark rounded">Settings</a></li>
+          <li><a href="#" class="link-dark rounded">Sign out</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+
+{%endblock%} {% block content %}
 <link rel="stylesheet" href="{% static 'css/prism.css'%}" />
-<!-- <link rel="stylesheet" href="prism.css" /> -->
-
-<div style="padding-top: 50px"></div>
-
-<form method="get" class="container-fluid">
-  <div class="input-group">
-    <button class="btn btn-outline-secondary" name="language" value="en">
-      English
-    </button>
-    <button class="btn btn-outline-secondary" name="language" value="zh">
-      中文
-    </button>
+<div class="row">
+  <div class="col-8">
+    {% if language == "en" or language == ""%}
+    <h1>API instructions</h1>
+    {% elif language == "zh" %}
+    <h1 class="fw-semibold">API 指南</h1>
+    {% endif %}
   </div>
-</form>
+  <div class="col-4">
+    <form method="get" class="container-fluid">
+      <div class="input-group">
+        <button class="btn btn-outline-secondary" name="language" value="en">
+          English
+        </button>
+        <button class="btn btn-outline-secondary" name="language" value="zh">
+          中文
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div style="padding-top: 20px"></div>
 
 {% if language == "en" or language == ""%}
-<h1>API instructions</h1>
-<h3>Image Analysis</h3>
+
+<h3 id="img_analysis">Image Analysis</h3>
 <p>
   This Website uses
   <a
@@ -36,7 +131,7 @@
 <hr class="hr" />
 
 <!-- Request URL -->
-<h5>Request URL (POST Request)</h5>
+<h5 id="request-url">Request URL (POST Request)</h5>
 <div
   class="p-2"
   style="background-color: rgb(238, 238, 238); border-radius: 5px"
@@ -60,7 +155,7 @@
 <hr class="hr" />
 
 <!-- Request parameters -->
-<h5>Request parameters</h5>
+<h5 id="request-parameter">Request parameters</h5>
 
 <h6>visualFeatures</h6>
 <div class="pb-2">
@@ -130,7 +225,7 @@
 
 <div style="padding-top: 20px"></div>
 <hr class="hr" />
-<h5>Request headers</h5>
+<h5 id="header/body">Request headers</h5>
 <h6>Content-Type</h6>
 <div class="pb-2">Media type of the body sent to the API.</div>
 <h6>Ocp-Apim-Subscription-Key</h6>
@@ -156,8 +251,7 @@
 <hr class="hr" />
 <h5>Code Sample</h5>
 {% elif language == "zh" %}
-<h1>API 指南</h1>
-<h3>影像分析服務</h3>
+<h3 id="img_analysis">影像分析服務</h3>
 <p>
   本網站使用:
   <a
@@ -175,7 +269,7 @@
 <hr class="hr" />
 
 <!-- Request URL -->
-<h5>Request URL (POST Request)</h5>
+<h5 id="request-url">Request URL (POST Request)</h5>
 <div
   class="p-2"
   style="background-color: rgb(238, 238, 238); border-radius: 5px"
@@ -197,7 +291,7 @@
 <hr class="hr" />
 
 <!-- Request parameters -->
-<h5>請求參數 (Request Parameter)</h5>
+<h5 id="request-parameter">請求參數 (Request Parameter)</h5>
 
 <h6>visualFeatures 視覺特徵</h6>
 <div class="pb-2">
@@ -266,7 +360,7 @@
 
 <div style="padding-top: 20px"></div>
 <hr class="hr" />
-<h5>Request headers</h5>
+<h5 id="header/body">Request headers</h5>
 <h6>Content-Type</h6>
 <div class="pb-2">傳送至API的媒體類型</div>
 <h6>Ocp-Apim-Subscription-Key</h6>
@@ -290,7 +384,7 @@
 </div>
 
 <hr class="hr" />
-<h5>程式範例：</h5>
+<h5 id="example">程式範例：</h5>
 {% endif %}
 <div
   class="p-2"
