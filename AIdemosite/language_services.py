@@ -39,8 +39,6 @@ def sentiment_analyze(text, lan):
 
     request = requests.post(constructed_url, params=params, headers=headers, data=body)
 
-    # print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
-
     response = request.json()
     return response
 

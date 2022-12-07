@@ -5,13 +5,13 @@
     class="align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
   >
     <span class="d-flex justify-content-center fs-5 fw-semibold">
-      {% if language == "en" or language == ""%} API Instructions {% elif language == "zh" %} API指南 {% endif %}
+      {% if language == "en" or language == ""%} Services Instructions {% elif language == "zh" %} API指南 {% endif %}
     </span>
   </a>
   <ul class="list-unstyled ps-0">
-    <li class="mb-1 text-center">
+    <li class="mb-1">
       <button
-        class="btn btn-toggle align-items-center rounded collapsed"
+        class="text-nowrap btn btn-toggle align-items-center rounded collapsed"
         data-bs-toggle="collapse"
         data-bs-target="#home-collapse"
         aria-expanded="false"
@@ -19,34 +19,31 @@
         Computer Vision API
       </button>
       <div class="collapse" id="home-collapse" >
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="padding-left: 20px;">
           <li><a href="#img_analysis" class="link-dark rounded">Image Analysis</a></li>
-          <li><a href="#request-url" class="link-dark rounded">Request URL</a></li>
-          <li><a href="#request-parameter" class="link-dark rounded">Request Parameter</a></li>
-          <li><a href="#header/body" class="link-dark rounded">header/body</a></li>
-          <li><a href="#example" class="link-dark rounded">example</a></li>
+          <li><a href="#img_request-url" class="link-dark rounded">POST Request</a></li>
+          <li><a href="#img_example" class="link-dark rounded">code example</a></li>
         </ul>
       </div>
     </li>
-    <li class="mb-1 text-center">
+    <li class="mb-1">
       <button
         class="btn btn-toggle align-items-center rounded collapsed"
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse"
         aria-expanded="false"
       >
-        Speech Services API
+        Speech SDK
       </button>
       <div class="collapse" id="dashboard-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">Overview</a></li>
-          <li><a href="#" class="link-dark rounded">Weekly</a></li>
-          <li><a href="#" class="link-dark rounded">Monthly</a></li>
-          <li><a href="#" class="link-dark rounded">Annually</a></li>
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="padding-left: 20px;">
+          <li><a href="#speech_services" class="link-dark rounded">speech services</a></li>
+          <li><a href="#speech-to-text" class="link-dark rounded">speech-to-text</a></li>
+          <li><a href="#text-to-speech" class="link-dark rounded">text-to-speech</a></li>
         </ul>
       </div>
     </li>
-    <li class="mb-1 text-center">
+    <li class="mb-1">
       <button
         class="btn btn-toggle align-items-center rounded collapsed"
         data-bs-toggle="collapse"
@@ -56,15 +53,15 @@
         Language Services API
       </button>
       <div class="collapse" id="orders-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">New</a></li>
-          <li><a href="#" class="link-dark rounded">Processed</a></li>
-          <li><a href="#" class="link-dark rounded">Shipped</a></li>
-          <li><a href="#" class="link-dark rounded">Returned</a></li>
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="padding-left: 20px;">
+          <li><a href="#language_services" class="link-dark rounded">Language Services</a></li>
+          <!-- <li><a href="#text_analysis" class="link-dark rounded">Text Analysis</a></li> -->
+          <li><a href="#txt_request-url" class="link-dark rounded">POST Request</a></li>
+          <li><a href="#lan_example" class="link-dark rounded">code example</a></li>
         </ul>
       </div>
     </li>
-    <li class="mb-1 text-center">
+    <li class="mb-1">
       <button
         class="btn btn-toggle align-items-center rounded collapsed"
         data-bs-toggle="collapse"
@@ -74,11 +71,10 @@
         Decision Services API
       </button>
       <div class="collapse" id="account-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">New...</a></li>
-          <li><a href="#" class="link-dark rounded">Profile</a></li>
-          <li><a href="#" class="link-dark rounded">Settings</a></li>
-          <li><a href="#" class="link-dark rounded">Sign out</a></li>
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="padding-left: 20px;">
+          <li><a href="#content-moderator" class="link-dark rounded"> content moderator</a></li>
+          <li><a href="#cm_request-url" class="link-dark rounded">POST Request</a></li>
+          <li><a href="#cm_example" class="link-dark rounded">code example</a></li>
         </ul>
       </div>
     </li>
@@ -131,7 +127,7 @@
 <hr class="hr" />
 
 <!-- Request URL -->
-<h5 id="request-url">Request URL (POST Request)</h5>
+<h5 id="img_request-url">Request URL (POST Request)</h5>
 <div
   class="p-2"
   style="background-color: rgb(238, 238, 238); border-radius: 5px"
@@ -269,7 +265,7 @@
 <hr class="hr" />
 
 <!-- Request URL -->
-<h5 id="request-url">Request URL (POST Request)</h5>
+<h5 id="img_request-url">Request URL (POST Request)</h5>
 <div
   class="p-2"
   style="background-color: rgb(238, 238, 238); border-radius: 5px"
@@ -384,7 +380,7 @@
 </div>
 
 <hr class="hr" />
-<h5 id="example">程式範例：</h5>
+<h5 id="img_example">程式範例：</h5>
 {% endif %}
 <div
   class="p-2"
@@ -423,7 +419,377 @@ except Exception as e:
     </code>
     </pre>
 </div>
-<div style="padding-top: 50px"></div>
 
+<h2 id="speech_services" style="padding-top: 60px;">語音分析服務</h2>
+<div><b>用REST API來使用語音分析服務會受到一些限制，建議盡量使用Speech SDK來完成語音辨識等服務。</b></div>
+<p style="padding: 10px;">
+  Speech SDK
+  <a href="https://learn.microsoft.com/zh-tw/azure/cognitive-services/speech-service/speech-sdk">Speech SDK overview</a>
+  <br/>
+  Prebuilt Model
+  <a href="https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/how-to-recognize-speech?pivots=programming-language-python">Speech-to-text</a>
+  <br/>
+  Custom Speech:
+  <a
+    href="https://eastus.dev.cognitive.microsoft.com/docs/services/speech-to-text-api-v3-0/operations/CopyModelToSubscription"
+    >Speech-to-text API (v3.0)</a
+  >
+  <a
+    href="https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/rest-text-to-speech?tabs=streaming"
+    >Text-to-speech API </a
+  >
+  <br />
+  預覽版本:
+  <a
+    href="https://eastus.dev.cognitive.microsoft.com/docs/services/speech-to-text-api-v3-1-preview1/operations/Datasets_CommitBlocks"
+    >Speech-to-text API (v3.1)</a
+  >
+  
+</p>
+<hr class="hr" />
+
+<h4 id="speech-to-text"> Speech-to-text </h4>
+<h5>建立Speech服務設定</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        
+        speech_config = speechsdk.SpeechConfig(subscription="YourSpeechKey", region="YourSpeechRegion")
+
+        ####################################
+    </code>
+    </pre>
+</div>
+<h5 style="padding-top: 20px;">從麥克風辨識語音</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        import azure.cognitiveservices.speech as speechsdk
+
+        def from_mic():
+            speech_config = speechsdk.SpeechConfig(subscription="YourSpeechKey", region="YourSpeechRegion")
+            speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config)
+        
+            print("Speak into your microphone.")
+            result = speech_recognizer.recognize_once_async().get()
+            print(result.text)
+        
+        from_mic()
+
+        ####################################
+    </code>
+    </pre>
+</div>
+<h5 style="padding-top: 20px;">從檔案辨識語音</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        import azure.cognitiveservices.speech as speechsdk
+
+        def from_file():
+            speech_config = speechsdk.SpeechConfig(subscription="YourSpeechKey", region="YourSpeechRegion")
+            audio_input = speechsdk.AudioConfig(filename="your_file_name.wav")
+            speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_input)
+
+            result = speech_recognizer.recognize_once_async().get()
+            print(result.text)
+
+        from_file()
+
+        ####################################
+    </code>
+    </pre>
+</div>
+<div style="padding: 15px;"></div>
+<h4 id="text-to-speech"> Text-to-speech </h4>
+<h5>選取合成語言和語音</h5>
+<div>Azure 語音服務中的文字轉換語音功能支援 270 種以上的語音和 110 種以上的語言和變化。 您可以查看<a href="https://learn.microsoft.com/zh-tw/azure/cognitive-services/speech-service/language-support?tabs=stt-tts">完整清單</a>並選取理想的發音</div>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        
+        # Set either the `SpeechSynthesisVoiceName` or `SpeechSynthesisLanguage`.
+        speech_config.speech_synthesis_language = "en-US" 
+        speech_config.speech_synthesis_voice_name ="en-US-JennyNeural"
+
+        ####################################
+    </code>
+    </pre>
+</div>
+<h5 style="padding-top: 20px;">將語音合成為檔案輸出</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        import azure.cognitiveservices.speech as speechsdk
+
+        audio_config = speechsdk.audio.AudioOutputConfig(filename="path/to/write/file.wav")
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        synthesizer.speak_text_async("I'm excited to try text-to-speech")
+        
+        ####################################
+    </code>
+    </pre>
+</div>
+<h5 style="padding-top: 20px;">將語音合成為喇叭輸出</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+        ########### Python #############
+        import azure.cognitiveservices.speech as speechsdk
+
+        audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        synthesizer.speak_text_async("I'm excited to try text-to-speech")
+
+        ####################################
+    </code>
+    </pre>
+</div>
+
+<div style="padding-top: 60px;"></div>
+<h2 id="language_services"><b>語言分析服務</b></h3>
+<p>
+  本網站使用:
+  <a
+    href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP"
+    >Text Analysis API</a
+  >
+  <br />
+  最新版本:
+  <a
+    href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP"
+    >Text Analysis API (preview)</a
+  >
+  目前為測試版本 (2022/10/12)
+</p>
+<hr class="hr" />
+
+<!-- Request URL -->
+<h5 id="txt_request-url">Request URL (POST Request)</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+POST {Endpoint}/language/:analyze-text?api-version=2022-05-01
+</div>
+<div style="padding-top: 10px;"></div>
+<h5 id="">with optional parameters</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+POST {Endpoint}/language/:analyze-text?api-version=2022-05-01&showStats={showStats}
+</div>
+<hr class="hr" />
+
+<!-- uri parameters -->
+<h5 id="language-uri-parameter">URI Parameters</h5>
+<h6>endpoint (端點)</h6>
+<div class="pb-2">服務的端點可以在Azure Portal中的服務概觀中找到</div>
+<h6>api-version</h6>
+<div class="pb-2">API版本(字串)</div>
+<h6>showStats</h6>
+<div class="pb-2">(非必要)若設為true，回傳值將會包含request和文件的統計資料</div>
+<hr class="hr" />
+
+<h5 id="header/body">Request headers</h5>
+<h6>Ocp-Apim-Subscription-Key</h6>
+<div class="pb-2">
+  訂用帳戶識別碼提供此API的權限，可以在
+  <a
+    href="https://portal.azure.com/#blade/HubsExtension/BrowseResourceBlade/resourceType/Microsoft.CognitiveServices%2Faccounts"
+    >Cognitive Services accounts</a
+  >
+  中找到
+</div>
+<hr class="hr" />
+<h5>Request body</h5>
+<div class="pb-2">
+  Request body可以是下列任何一種：
+  <ul style="padding-top: 10px;">
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextentitylinkinginput">AnalyzeTextEntityLinkingInput</a></li>
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextentityrecognitioninput">AnalyzeTextEntityRecognitionInput</a></li>
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextkeyphraseextractioninput">AnalyzeTextKeyPhraseExtractionInput</a></li>
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextlanguagedetectioninput">AnalyzeTextLanguageDetectionInput</a></li>
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextpiientitiesrecognitioninput">AnalyzeTextPiiEntitiesRecognitionInput</a></li>
+    <li><a style="color: #555;" href="https://learn.microsoft.com/en-us/rest/api/language/2022-05-01/text-analysis-runtime/analyze-text?tabs=HTTP#analyzetextsentimentanalysisinput">AnalyzeTextSentimentAnalysisInput</a></li>
+  </ul>
+</div>
+
+<hr class="hr" />
+<h5 id="lan_example">程式範例(情感分析)：</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+    ########### Python 3.2 #############
+    import http.client, urllib.request, urllib.parse, urllib.error, base64
+
+    key = LAN_SUB_KEY
+    endpoint = "https://"+REGION+".api.cognitive.microsoft.com/"
+
+    # location, also known as region.
+    # required if you're using a multi-service or regional (not global) resource. 
+    # It can be found in the Azure portal on the Keys and Endpoint page.
+    location = REGION
+
+    path = 'text/analytics/v3.1/sentiment'
+    constructed_url = endpoint + path
+
+    params = {
+        'showStats' : 'true',
+        'opinionMining' : 'true',
+    }
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Content-type': 'application/json',
+    }
+
+    # You can pass more than one object in body.
+    body = json.dumps({
+        "documents": [
+            {
+            "id": "1",
+            "language": "en",
+            "text": "", # input text should be put in here
+            }
+        ]
+    })
+
+    request = requests.post(constructed_url, params=params, headers=headers, data=body)
+    response = request.json()
+    print(response)
+
+    ####################################
+    </code>
+    </pre>
+</div>
+
+<div style="padding-top: 60px;"></div>
+<h2 id="content-moderator"><b>決策服務</b></h3>
+<p>
+  本網站使用:
+  <a
+    href="https://westus.dev.cognitive.microsoft.com/docs/services/57cf753a3f9b070c105bd2c1/operations/57cf753a3f9b070868a1f66f"
+    >Content Moderator API</a
+  >
+</p>
+<hr class="hr" />
+
+<!-- Request URL -->
+<h5 id="cm_request-url">Request URL (POST Request)</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+POST https://{endpoint}/contentmoderator/moderate/v1.0/ProcessText/Screen[?autocorrect][&PII][&listId][&classify][&language]
+</div>
+<hr class="hr" />
+
+<!-- uri parameters -->
+<h5 id="">Request Parameters</h5>
+<h6>autocorrect (自動更正)</h6>
+<div class="pb-2">(非必要)若設為true。在執行其他動作前會先自動更正輸入的部分錯誤</div>
+<h6>PII (個人資料)</h6>
+<div class="pb-2">(非必要)若設為true，Content Moderator會在輸入中偵測個人資料(PII)</div>
+<h6>listId </h6>
+<div class="pb-2">(非必要)用於匹配的術語清單。(字串)</div>
+<h6>classify (分類)</h6>
+<div class="pb-2">(非必要)若為true，將啟用文字分類</div>
+<h6>language (語言)</h6>
+<div class="pb-2">字串，若沒有選擇語言，預設為英語</div>
+<a href="https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/language-support">支援語言</a>
+<hr class="hr" />
+
+<h5 id="header/body">Request headers</h5>
+<h6>Content-Type</h6>
+<div class="pb-2">
+  傳送到API內容的媒體類型。
+</div>
+<h6>Ocp-Apim-Subscription-Key</h6>
+<div class="pb-2">
+  訂用帳戶識別碼提供此API的權限，可以在
+  <a
+    href="https://portal.azure.com/#blade/HubsExtension/BrowseResourceBlade/resourceType/Microsoft.CognitiveServices%2Faccounts"
+    >Cognitive Services accounts</a
+  >
+  中找到
+</div>
+<hr class="hr" />
+
+<h5 id="header/body">Request body</h5>
+This method supports raw requests with MIME types listed below:
+<ul>
+  <li>text/html</li>
+  <li>text/xml</li>
+  <li>text/markdown</li>
+  <li>text/plain</li>
+</ul>
+
+<h5 id="cm_example">程式範例(Content Moderator - Text)：</h5>
+<div
+  class="p-2"
+  style="background-color: rgb(238, 238, 238); border-radius: 5px"
+>
+  <pre>
+    <code class="language-python">
+      ########### Python 3.2 #############
+      import http.client, urllib.request, urllib.parse, urllib.error, base64
+      
+      headers = {
+          # Request headers
+          'Content-Type': 'text/plain',
+          'Ocp-Apim-Subscription-Key': '{subscription key}',
+      }
+      
+      params = urllib.parse.urlencode({
+          # Request parameters
+          'autocorrect': '{boolean}',
+          'PII': '{boolean}',
+          'listId': '{string}',
+          'classify': 'True',
+          'language': '{string}',
+      })
+      
+      try:
+          conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
+          conn.request("POST", "/contentmoderator/moderate/v1.0/ProcessText/Screen?%s" % params, "{body}", headers)
+          response = conn.getresponse()
+          data = response.read()
+          print(data)
+          conn.close()
+      except Exception as e:
+          print("[Errno {0}] {1}".format(e.errno, e.strerror))
+      
+      ####################################
+    </code>
+    </pre>
+</div>
 <script src="{% static 'js/prism.js'%}"></script>
 {% endblock %}
