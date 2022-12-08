@@ -1,26 +1,53 @@
-{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+{% extends 'AIdemosite/base.html' %} {% load static %} 
+{% block sidebar %}
+<div class="flex-shrink-0 p-1 bg-white" style="width: 200px; position: -webkit-sticky; position: sticky; top:30px;">
+  <a
+    href="#"
+    class="align-items-center pb-2 mb-2 link-dark text-decoration-none border-bottom"
+  >
+    <span class="d-flex justify-content-center fs-5 fw-semibold">
+      Microsoft Ignite 2022
+    </span>
+  </a>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <li><a href="#cognitive_updates" class="link-dark rounded">cognitive services update</a></li>
+      <li><a href="#AML" class="link-dark rounded">Azure Machine Learning</a></li>
+      <li><a href="#bonsai" class="link-dark rounded">Project Bonsai</a></li>
+      <li><a href="#ppl" class="link-dark rounded">Power Platform</a></li>
+      
+    </li>
+  </ul>
+</div>
+
+{%endblock%}
+{% block content %} 
 <link rel="stylesheet" href="{% static 'css/prism.css'%}" />
 <!-- <link rel="stylesheet" href="prism.css" /> -->
-
-<div style="padding-top: 50px"></div>
-
-<form method="get" class="container-fluid">
-  <div class="input-group">
-    <button class="btn btn-outline-secondary" name="language" value="en">
-      English
-    </button>
-    <button class="btn btn-outline-secondary" name="language" value="zh">
-      中文
-    </button>
+<div class="row">
+  <div class="col-8">
+    <h1 class="fw-semibold">Microsoft Ignite 2022</h1>
   </div>
-</form>
+  <div class="col-4">
+    <form method="get" class="container-fluid">
+      <div class="input-group">
+        <button class="btn btn-outline-secondary" name="language" value="en">
+          English
+        </button>
+        <button class="btn btn-outline-secondary" name="language" value="zh">
+          中文
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div style="padding-top: 20px"></div>
 
 {% if language == "en" or language == ""%}
-<h1 id="microsoft-ignite-2022">Microsoft Ignite 2022</h1>
 <!-- priority 1 -->
 <h2 id="ai">AI</h2>
-<h3 id="updates-for-cognitive-services">Updates for Cognitive Services</h3>
+<h3 id="cognitive_updates">Updates for Cognitive Services</h3>
 <ul>
   <li>
     Azure OpenAI Service
@@ -83,7 +110,7 @@
     >
   </li>
 </ul>
-<h3 id="azure-machine-learning-features">Azure Machine Learning Features</h3>
+<h3 id="AML">Azure Machine Learning Features</h3>
 <ul>
   <li>
     Azure Machine Learning registries(preview)
@@ -116,7 +143,7 @@
   <a href="https://aka.ms/Ignite22/AutomationAI">Learn More</a> about this
   update
 </p>
-<h3 id="project-bonsai-preview">Project Bonsai (預覽)</h3>
+<h3 id="bonsai">Project Bonsai (預覽)</h3>
 <p>
   Microsoft Bonsai Project is a low-code industrial AI development platform,
   where engineers will be able to create
@@ -165,10 +192,9 @@
   </li>
 </ul>
 {% elif language == "zh" %}
-<h1 id="microsoft-ignite-2022">Microsoft Ignite 2022</h1>
 
 <h2 id="ai">AI人工智慧</h2>
-<h3 id="updates-for-cognitive-services">認知服務更新</h3>
+<h3 id="cognitive_updates">認知服務更新</h3>
 <ul>
   <li>
     Azure OpenAI 服務
@@ -223,7 +249,7 @@
     >
   </li>
 </ul>
-<h3 id="azure-machine-learning-features">Azure機器學習功能</h3>
+<h3 id="AML">Azure機器學習功能</h3>
 <ul>
   <li>
     Azure 機器學習註冊表（預覽版）
@@ -259,7 +285,7 @@
 <p>
   <a href="https://aka.ms/Ignite22/AutomationAI">了解更多</a>關於此更新的訊息
 </p>
-<h3 id="project-bonsai-preview">- Project Bonsai (preview)</h3>
+<h3 id="bonsai">Project Bonsai (preview)</h3>
 <p>
   Microsoft Bonsai Project 是一個低代碼工業 AI
   開發平台，工程師無需具備廣泛的資料科學背景即可創建<strong>AI驅動的自動化</strong>。公司正在使用
@@ -295,7 +321,7 @@
     <p><strong>Bonsai Samples在Azure Marketplace中可以找到</strong></p>
   </li>
 </ul>
-<h3>通過使用 Power Platform 自動化重複流程</h3>
+<h3 id="ppl">通過使用 Power Platform 自動化重複流程</h3>
 <div class="mb-3">
   低代碼使人們和組織能夠在 IT
   資源上以更低的成本做更多的事情，而且在革新日常流程方面，沒有什麼能比得上 Power
@@ -330,5 +356,5 @@
   >
 </div>
 {% endif %}
-<div style="padding-top: 50px"></div>
+<div style="padding-top: 500px"></div>
 {% endblock %}
