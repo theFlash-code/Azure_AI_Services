@@ -197,7 +197,7 @@ def obj_detection(response):
         from .computer_vision_analysis import obj_detection
         url = response.POST.get('img-url')
         language = 'en'
-        data, img = face_detection(url, language)
+        data, img = obj_detection(url, language)
         img.save("static/images/obj_detection_result.jpg")
         return render(response, "AIdemosite/object_detection.html", {"flag":True})
 
