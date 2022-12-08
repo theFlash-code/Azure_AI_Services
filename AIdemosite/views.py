@@ -198,10 +198,10 @@ def obj_detection(response):
         url = response.POST.get('img-url')
         language = 'en'
         r_data = obj_detection(url, language)
-        data = r_data['data']
+        data = r_data['data']['objects']
         img = r_data['img']
         img.save("static/images/obj_detection_result.jpg")
-        return render(response, "AIdemosite/object_detection.html", {"flag":True})
+        return render(response, "AIdemosite/object_detection.html", {"flag":True, "data":data})
 
     return render(response, "AIdemosite/object_detection.html", {})
 

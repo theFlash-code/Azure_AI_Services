@@ -1,6 +1,5 @@
 {% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
 
-<div style="padding-top: 50px"></div>
 <form method="post" class="container-fluid">
   {% csrf_token %}
 
@@ -72,12 +71,22 @@
   </div>
   <div class="input-group mb-3">
     {% if flag == True %}
-    <img
-      id="modal-img"
-      class="img-fluid"
-      src="{% static 'images/obj_detection_result.jpg'%}"
-      alt="img not found"
-    />
+    <div class="row">
+      <img
+        id="modal-img"
+        class="img-fluid col-sm-10"
+        src="{% static 'images/obj_detection_result.jpg'%}"
+        alt="img not found"
+      />
+      <div class="col-sm-2">
+        <div class="input-group mb-3" >
+          {% for d in data %}
+          {{d.object}} confidence: {{d.confidence}}<br/>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
     {% else %}
     <div style="padding-top: 50px; padding-bottom: 10px">
       <h2>Instructions:</h2>

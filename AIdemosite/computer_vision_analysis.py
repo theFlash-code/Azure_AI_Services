@@ -11,6 +11,7 @@ from azure.identity import DefaultAzureCredential
 # from AIdemosite.test import KVUri
 
 
+
 KVUri = "https://aidemosite-keyvault.vault.azure.net"
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
@@ -258,7 +259,7 @@ def obj_detection(url, language):
             img_drw.rectangle([(l, t-60), (l+(23*len(obj_name)), t)], fill="white")
             font = ImageFont.truetype("arial.ttf", size=44)
             img_drw.text((l, t-50), str(obj_name), font=font, fill="black")
-        img.show()
+        # img.show()
         return {"data":data, "img":img}
 
     except Exception as e:
