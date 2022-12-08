@@ -216,6 +216,55 @@ def read_text(url, language):
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
+def obj_detection(url, language):
+    
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'visualFeatures': 'Objects',
+        'language': language,
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+
+        
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)
+        
+        objects = data['objects']
+        for obj in objects:
+            rect = obj['rectangle']
+            t = rect['y']
+            l = rect['x']
+            w = rect['w']
+            h = rect['h']
+            img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+            obj_name = obj['object']
+            img_drw.rectangle([(l, t-60), (l+(23*len(obj_name)), t)], fill="white")
+            font = ImageFont.truetype("arial.ttf", size=44)
+            img_drw.text((l, t-50), str(obj_name), font=font, fill="black")
+        img.show()
+        return {"data":data, "img":img}
+
+    except Exception as e:
+        print(e)
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
 def test():
     data = {
         "description": {
@@ -301,12 +350,3 @@ def test():
 
     # img.show()
     return img
-
-# read_text('https://rlv.zcache.com/custom_your_text_image_background_color_bumper_sticker-r9a7314b88be545a4886346db9bb7cf95_v9wht_8byvr_630.jpg?view_padding=[285%2C0%2C285%2C0]')
-
-# area_of_interest("https://merriam-webster.com/assets/ld/word_of_the_day/images/2540/large.jpg")
-
-# img = face_detection('https://th-i.thgim.com/public/sport/football/u4adlh/article35828916.ece/alternates/FREE_1200/Lionel-Messi-of-Barcelona-Press-Conference', 'faces')
-# img = test()
-# img.show()
-# print("test:")
