@@ -198,6 +198,7 @@ def obj_detection(response):
         url = response.POST.get('img-url')
         language = 'en'
         r_data = obj_detection(url, language)
+        print(r_data)
         data = r_data['data']['objects']
         img = r_data['img']
         img.save("static/images/obj_detection_result.jpg")
