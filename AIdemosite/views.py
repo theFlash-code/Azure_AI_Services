@@ -198,11 +198,22 @@ def obj_detection(response):
         url = response.POST.get('img-url')
         language = 'en'
         r_data = obj_detection(url, language)
-        print("THE DATA IS HERE")
-        print(r_data)
         data = r_data['data']['objects']
         img = r_data['img']
         img.save("static/images/obj_detection_result.jpg")
+        return render(response, "AIdemosite/object_detection.html", {"flag":True, "data":data})
+
+    return render(response, "AIdemosite/object_detection.html", {})
+
+def brand_detection(response):
+    if response.method == 'POST':
+        from .computer_vision_analysis import brand_detection
+        url = response.POST.get('img-url')
+        language = 'en'
+        r_data = brand_detection(url, language)
+        data = r_data['data']['brands']
+        img = r_data['img']
+        img.save("static/images/brand_detection_result.jpg")
         return render(response, "AIdemosite/object_detection.html", {"flag":True, "data":data})
 
     return render(response, "AIdemosite/object_detection.html", {})

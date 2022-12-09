@@ -14,6 +14,7 @@ urlpatterns = [
     path("area_of_interest/", views.area_of_interest, name="area_of_interest"),
     path("read_text/", views.read_text, name="read_text"),
     path("obj_detection/", views.obj_detection, name="obj_detection"),
+    path("brand_detection/", views.brand_detection, name="brand_detection"),
     path("content_moderator/", views.content_moderator, name="content_moderator"),
     path("test/", views.test, name="test"),
     path("api_instructions/", views.api_instruction, name="api_instructions"),

@@ -267,6 +267,53 @@ def obj_detection(url, language):
         print(e)
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
+def brand_detection(url, language):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'visualFeatures': 'Brands',
+        'language': language,
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+
+        
+        img = Image.open(requests.get(url, stream=True).raw)
+        img_drw = ImageDraw.Draw(img)
+        
+        brands = data['brands']
+        for brand in brands:
+            rect = brand['rectangle']
+            t = rect['y']
+            l = rect['x']
+            w = rect['w']
+            h = rect['h']
+            img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+            brand_name = brand['object']
+            img_drw.rectangle([(l, t+60), (l+(23*len(brand_name)), t)], fill="white")
+            font = ImageFont.truetype("AIdemosite/SansSerifFLF.otf", size=44)
+            img_drw.text((l, t-50), str(brand_name), font=font, fill="black")
+        # img.show()
+        return {"data":data, "img":img}
+
+    except Exception as e:
+        print(e)
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
 def test():
     data = {
         "description": {
