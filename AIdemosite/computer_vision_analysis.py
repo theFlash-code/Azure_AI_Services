@@ -292,7 +292,7 @@ def brand_detection(url, language):
         data = json.loads(data_json)
         conn.close()
 
-        
+        # print(data)
         img = Image.open(requests.get(url, stream=True).raw)
         img_drw = ImageDraw.Draw(img)
         
@@ -304,16 +304,12 @@ def brand_detection(url, language):
             w = rect['w']
             h = rect['h']
             img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
-            brand_name = brand['object']
-            img_drw.rectangle([(l, t+60), (l+(23*len(brand_name)), t)], fill="white")
-            font = ImageFont.truetype("AIdemosite/SansSerifFLF.otf", size=44)
-            img_drw.text((l, t-50), str(brand_name), font=font, fill="black")
-        # img.show()
+
         return {"data":data, "img":img}
 
     except Exception as e:
         print(e)
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        # print("[Errno {0}] {1}".format(e.errno, e.strerror))
 def test():
     data = {
         "description": {
