@@ -10,15 +10,15 @@ from azure.identity import DefaultAzureCredential
 
 # from AIdemosite.test import KVUri
 
-CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
-REGION = 'eastasia'
+# CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
+# REGION = 'eastasia'
 
-# KVUri = "https://aidemosite-keyvault.vault.azure.net"
-# credential = DefaultAzureCredential()
-# client = SecretClient(vault_url=KVUri, credential=credential)
+KVUri = "https://aidemosite-keyvault.vault.azure.net"
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
 
-# CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
-# REGION = client.get_secret("REGION").value
+CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
+REGION = client.get_secret("REGION").value
 
 def image_description(url, visualFeatures):
     
@@ -258,7 +258,7 @@ def obj_detection(url, language):
             img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
             obj_name = obj['object']
             img_drw.rectangle([(l, t-60), (l+(23*len(obj_name)), t)], fill="white")
-            font = ImageFont.truetype("arial.ttf", size=44)
+            font = ImageFont.truetype("AIdemosite/SansSerifFLF.otf", size=44)
             img_drw.text((l, t-50), str(obj_name), font=font, fill="black")
         # img.show()
         return {"data":data, "img":img}
