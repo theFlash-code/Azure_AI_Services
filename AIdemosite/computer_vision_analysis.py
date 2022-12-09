@@ -10,7 +10,8 @@ from azure.identity import DefaultAzureCredential
 
 # from AIdemosite.test import KVUri
 
-
+# CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
+# REGION = 'eastasia'
 
 KVUri = "https://aidemosite-keyvault.vault.azure.net"
 credential = DefaultAzureCredential()
@@ -46,15 +47,15 @@ def image_description(url, visualFeatures):
         conn.close()
 
         img = Image.open(requests.get(url, stream=True).raw)
-        img_drw = ImageDraw.Draw(img)  
-        face = data['faces']
-        for pos in face:
-            rect = pos['faceRectangle']
-            t = rect['top']
-            l = rect['left']
-            w = rect['width']
-            h = rect['height']
-            img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
+        # img_drw = ImageDraw.Draw(img)  
+        # face = data['faces']
+        # for pos in face:
+        #     rect = pos['faceRectangle']
+        #     t = rect['top']
+        #     l = rect['left']
+        #     w = rect['width']
+        #     h = rect['height']
+        #     img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
 
         return {"data":data, "img":img}
 
