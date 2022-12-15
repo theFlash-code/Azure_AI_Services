@@ -309,7 +309,40 @@ def brand_detection(url, language):
 
     except Exception as e:
         print(e)
-        # print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+def img_categories(url, language):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'visualFeatures': 'Brands',
+        'language': language,
+        'model-version': 'latest',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
+        # url = "https://th.bing.com/th/id/R.c3149655a1a145f0349a199e6bbe479e?rik=BEAyEveQSv47hg&pid=ImgRaw&r=0"
+        conn.request("POST", "/vision/v3.2/analyze?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        data = response.read()
+        
+        data_json = data.decode('utf8')
+        data = json.loads(data_json)
+        conn.close()
+        data = data['categories']
+        print(data)
+        return data
+
+    except Exception as e:
+        print(e)
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
 def test():
     data = {
         "description": {
