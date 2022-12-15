@@ -320,7 +320,7 @@ def img_categories(url, language):
 
     params = urllib.parse.urlencode({
         # Request parameters
-        'visualFeatures': 'Brands',
+        'visualFeatures': 'Categories',
         'language': language,
         'model-version': 'latest',
     })
