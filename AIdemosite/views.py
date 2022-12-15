@@ -218,15 +218,15 @@ def brand_detection(response):
 
     return render(response, "AIdemosite/object_detection.html", {})
 
-def image_description(response):
+def img_categories(response):
     
     if response.method == 'POST':
         from .computer_vision_analysis import img_categories
         url = response.POST.get('img-url')
         data = img_categories(url, "en")
-        return render(response, "AIdemosite/image_description.html", {"data":data, "url":url, "flag":True})
+        return render(response, "AIdemosite/img_categories.html", {"data":data, "url":url, "flag":True})
 
-    return render(response, "AIdemosite/image_description.html", {"flag":False})
+    return render(response, "AIdemosite/img_categories.html", {"flag":False})
    
 def test(response):
     

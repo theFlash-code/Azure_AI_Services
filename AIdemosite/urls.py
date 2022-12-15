@@ -10,6 +10,7 @@ urlpatterns = [
     path("language_sentiment/", views.language_sentiment, name="language_sentiment"),
     path("language_keyPhrases/", views.language_keyPhrases, name="language_keyPhrases"),
     path("image_description/", views.image_description, name="image_description"),
+    path("img_categories/", views.img_categories, name="img_categories"),
     path("face_detection/", views.face_detection, name="face_detection"),
     path("area_of_interest/", views.area_of_interest, name="area_of_interest"),
     path("read_text/", views.read_text, name="read_text"),
