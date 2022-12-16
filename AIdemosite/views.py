@@ -224,7 +224,7 @@ def img_categories(response):
         from .computer_vision_analysis import img_categories
         url = response.POST.get('img-url')
         data = img_categories(url, "en")
-        return render(response, "AIdemosite/img_categories.html", {"data":data[0], "url":url, "flag":True})
+        return render(response, "AIdemosite/img_categories.html", {"data":data, "url":url, "flag":True})
 
     return render(response, "AIdemosite/img_categories.html", {"flag":False})
 
@@ -234,7 +234,7 @@ def img_color(response):
         from .computer_vision_analysis import img_color
         url = response.POST.get('img-url')
         data = img_color(url, "en")
-        return render(response, "AIdemosite/img_color.html", {"data":data, "url":url, "flag":True})
+        return render(response, "AIdemosite/img_color.html", {"data":data[0], "url":url, "flag":True})
 
     return render(response, "AIdemosite/img_color.html", {"flag":False})
    
@@ -244,7 +244,7 @@ def img_type(response):
         from .computer_vision_analysis import img_type
         url = response.POST.get('img-url')
         data = img_type(url, "en")
-        return render(response, "AIdemosite/img_type.html", {"data":data[0], "url":url, "flag":True})
+        return render(response, "AIdemosite/img_type.html", {"data":data, "url":url, "flag":True})
 
     return render(response, "AIdemosite/img_type.html", {"flag":False})
 
@@ -263,7 +263,6 @@ def api_instruction(response):
 
 def ms_ignite(response):
     if response.method == 'GET':
-        # print(response)
         language = response.GET.get('language')
         print(language)
         return render(response, "AIdemosite/ms_ignite.html", {"language":language})
