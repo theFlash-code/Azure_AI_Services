@@ -129,6 +129,7 @@ def language_keyPhrases(response):
 
     return render(response, "AIdemosite/language_keyPhrases.html", {})
 
+#Computer Vision
 def image_description(response):
     
     if response.method == 'POST':
@@ -166,6 +167,20 @@ def area_of_interest(response):
         return render(response, "AIdemosite/area_of_interest.html", {"flag":True})
 
     return render(response, "AIdemosite/area_of_interest.html", {})
+
+def img_sumbnail(response): 
+    if response.method == 'POST':
+        from .computer_vision_analysis import img_sumbnail
+        url = response.POST.get('img-url')
+        w = response.POST.get('img-w')
+        h = response.POST.get('img-h')
+        img = img_sumbnail(url, w, h)
+        img.save("static/images/img_sumbnail.jpg")
+        return render(response, "AIdemosite/img_sumbnail.html", {"url":url, "flag":True})
+
+    return render(response, "AIdemosite/img_sumbnail.html", {"flag":False})
+
+
 
 def read_text(response):
     if response.method == 'POST':
@@ -247,6 +262,8 @@ def img_type(response):
         return render(response, "AIdemosite/img_type.html", {"data":data, "url":url, "flag":True})
 
     return render(response, "AIdemosite/img_type.html", {"flag":False})
+
+
 
 def test(response):
     

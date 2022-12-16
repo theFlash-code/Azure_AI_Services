@@ -404,6 +404,32 @@ def img_color(url, language):
         print(e)
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
+def img_sumbnail(url, w, h):
+    headers = {
+        # Request headers
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': CV_SUB_KEY,
+    }
+
+    params = urllib.parse.urlencode({
+        # Request parameters
+        'width': w,
+        'height': h,
+        'smartCropping': True,
+    })
+
+    try:
+        conn = http.client.HTTPSConnection(REGION+'.api.cognitive.microsoft.com')
+        conn.request("POST", "/vision/v3.2/generateThumbnail?%s" % params, ('{"url":"%s"}' % url), headers)
+        response = conn.getresponse()
+        img = response.read()
+        
+        return img
+
+    except Exception as e:
+        print(e)
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
 def test():
     data = {
         "description": {
