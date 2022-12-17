@@ -168,14 +168,14 @@ def area_of_interest(response):
 
     return render(response, "AIdemosite/area_of_interest.html", {})
 
-def img_sumbnail(response): 
+def img_thumbnail(response): 
     if response.method == 'POST':
-        from .computer_vision_analysis import img_sumbnail
+        from .computer_vision_analysis import img_thumbnail
         url = response.POST.get('img-url')
         w = response.POST.get('img-w')
         h = response.POST.get('img-h')
         print(w, h)
-        img_data = img_sumbnail(url, w, h)
+        img_data = img_thumbnail(url, w, h)
         print(type(img_data))
         import io, base64
         binary_img_data = base64.b64decode(img_data)
@@ -183,13 +183,13 @@ def img_sumbnail(response):
         # open the image file
         image = Image.open(img_file)
         # save the image as a JPEG file
-        image.save('static/images/img_sumbnail.jpg', 'JPEG')
+        image.save('static/images/img_thumbnail.jpg', 'JPEG')
 
         # img = Image.frombytes('RGBA', (w,h), img_data, 'raw')
-        # img.save("static/images/img_sumbnail.jpg")
-        return render(response, "AIdemosite/img_sumbnail.html", {"url":url, "flag":True})
+        # img.save("static/images/img_thumbnail.jpg")
+        return render(response, "AIdemosite/img_thumbnail.html", {"url":url, "flag":True})
 
-    return render(response, "AIdemosite/img_sumbnail.html", {"flag":False})
+    return render(response, "AIdemosite/img_thumbnail.html", {"flag":False})
 
 
 

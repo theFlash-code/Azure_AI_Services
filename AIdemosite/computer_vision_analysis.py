@@ -403,7 +403,7 @@ def img_color(url, language):
         print(e)
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-def img_sumbnail(url, w, h):
+def img_thumbnail(url, w, h):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
