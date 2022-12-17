@@ -177,9 +177,11 @@ def img_sumbnail(response):
         print(w, h)
         img_data = img_sumbnail(url, w, h)
         print(type(img_data))
-        
+        import io, base64
+        binary_img_data = base64.b64decode(img_data)
+        img_file = io.BytesIO(binary_img_data)
         # open the image file
-        image = Image.open(img_data)
+        image = Image.open(img_file)
         # save the image as a JPEG file
         image.save('static/images/img_sumbnail.jpg', 'JPEG')
 
