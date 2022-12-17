@@ -178,8 +178,8 @@ def img_thumbnail(response):
         img_data = img_thumbnail(url, w, h)
         print(type(img_data))
         import io, base64
-        binary_img_data = base64.b64decode(img_data)
-        img_file = io.BytesIO(binary_img_data)
+        # binary_img_data = base64.b64decode(img_data)
+        img_file = io.BytesIO(img_data)
         # open the image file
         image = Image.open(img_file)
         # save the image as a JPEG file
