@@ -174,6 +174,7 @@ def img_sumbnail(response):
         url = response.POST.get('img-url')
         w = response.POST.get('img-w')
         h = response.POST.get('img-h')
+        print(w, h)
         img_data = img_sumbnail(url, w, h)
         img = Image.frombytes('RGBA', (w,h), img_data, 'raw')
         img.save("static/images/img_sumbnail.jpg")
