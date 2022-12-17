@@ -177,8 +177,14 @@ def img_sumbnail(response):
         print(w, h)
         img_data = img_sumbnail(url, w, h)
         print(type(img_data))
-        img = Image.frombytes('RGBA', (w,h), img_data, 'raw')
-        img.save("static/images/img_sumbnail.jpg")
+        
+        # open the image file
+        image = Image.open(img_data)
+        # save the image as a JPEG file
+        image.save('static/images/img_sumbnail.jpg', 'JPEG')
+
+        # img = Image.frombytes('RGBA', (w,h), img_data, 'raw')
+        # img.save("static/images/img_sumbnail.jpg")
         return render(response, "AIdemosite/img_sumbnail.html", {"url":url, "flag":True})
 
     return render(response, "AIdemosite/img_sumbnail.html", {"flag":False})
