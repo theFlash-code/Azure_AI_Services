@@ -8,7 +8,6 @@ import environ
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
-# from AIdemosite.test import KVUri
 
 # CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
 # REGION = 'eastasia'

@@ -174,7 +174,8 @@ def img_sumbnail(response):
         url = response.POST.get('img-url')
         w = response.POST.get('img-w')
         h = response.POST.get('img-h')
-        img = img_sumbnail(url, w, h)
+        img_data = img_sumbnail(url, w, h)
+        img = Image.frombytes('RGBA', (w,h), img_data, 'raw')
         img.save("static/images/img_sumbnail.jpg")
         return render(response, "AIdemosite/img_sumbnail.html", {"url":url, "flag":True})
 
