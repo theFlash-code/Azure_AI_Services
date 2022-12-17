@@ -180,8 +180,10 @@ def img_thumbnail(response):
         import io, base64
         # binary_img_data = base64.b64decode(img_data)
         img_file = io.BytesIO(img_data)
+        print(type(img_file))
         # open the image file
         image = Image.open(img_file)
+        print(type(image))
         # save the image as a JPEG file
         image.save('static/images/img_thumbnail.jpg', 'JPEG')
 
