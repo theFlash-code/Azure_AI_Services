@@ -3,7 +3,7 @@
 <form method="post" class="container-fluid">
   {% csrf_token %}
 
-  <h2>Object Detection</h2>
+  <h2>Brand Detection</h2>
   <div class="input-group mb-3 mt-3">
     <span class="input-group-text">Image URL</span>
     <input
@@ -75,7 +75,7 @@
       <img
         id="modal-img"
         class="img-fluid col-sm-10"
-        src="{% static 'images/obj_detection_result.jpg'%}"
+        src="{% static 'images/brand_detection_result.jpg'%}"
         alt="img not found"
       />
       <div class="col-sm-2">

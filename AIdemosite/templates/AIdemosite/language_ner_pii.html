@@ -1,0 +1,56 @@
+{% extends 'AIdemosite/base.html' %} {% block content %}
+
+<h2>Entities Recognition (PII)</h2>
+<h4>Personal Identifiable Information</h4>
+<div style="padding-top: 10px;"></div>
+<form method="post" class="container-fluid">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <select
+      class="btn btn-outline-primary"
+      aria-label="Default select example"
+      name="lang_slct"
+    >
+      <option value="en">English</option>
+      <option value="zh">中文</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+  <div class="input-group mb-3">
+    <p>create new lines to identify the languages of multiple sentences</p>
+  </div>
+  <div class="input-groupt mb-3">
+    <textarea
+      name="input_text"
+      style="display: inline-block; width: 500px; height: 200px"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <button type="submit" class="btn btn-outline-secondary" name="btn-analyze">
+      Analyze
+    </button>
+  </div>
+</form>
+{% if flag == True%}
+<div style="padding-top: 30px"></div>
+<div class="mb-3">
+    <div class="input-group">
+        <h4>Entities</h4><br>
+    </div>
+
+    <dl class="row"> 
+        {%for key, ent in categorized.items%}
+        <dt class="col-sm-3">{{key}}</dt>
+        <dd class="col-sm-9">
+            {% for e in ent %}
+            <p>{{e}}</p>
+            {% endfor %}
+        </dd>
+        {% endfor %}
+    </dl>
+    
+</div>
+{% endif %} {% endblock %}

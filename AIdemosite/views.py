@@ -98,6 +98,7 @@ def speech_services(response):
     else:
         return render(response, "AIdemosite/speech_services.html", {"s2t":"Click the button to use the speech to text service", "t2s":"Enter the text here"})
 
+#Language
 def language_sentiment(response):
     # print('btn-analyze' in response.POST)
     if response.method == 'POST' :
@@ -128,6 +129,67 @@ def language_keyPhrases(response):
         return render(response, "AIdemosite/language_keyPhrases.html", {"flag":True, "text":text, "phrases":phrases})
 
     return render(response, "AIdemosite/language_keyPhrases.html", {})
+
+def language_ner(response):
+    if response.method == 'POST' :
+        from .language_services import entities_recognition
+        text = response.POST.get('input_text')
+        lan = response.POST.get('lang_slct')
+        result = entities_recognition(text, lan)
+        entities = result['documents'][0]['entities']
+        categorized_data = {}
+        for entity in entities:
+            category = entity['category']
+            if category not in categorized_data:
+                categorized_data[category] = []
+            categorized_data[category].append(entity['text'])
+        print(type(categorized_data))
+        return render(response, "AIdemosite/language_ner.html", {"categorized":categorized_data, "flag":True })
+    
+    return render(response, "AIdemosite/language_ner.html", {})
+
+def language_ner_pii(response):
+    if response.method == 'POST' :
+        from .language_services import entities_recognition_pii
+        text = response.POST.get('input_text')
+        lan = response.POST.get('lang_slct')
+        result = entities_recognition_pii(text, lan)
+        entities = result['documents'][0]['entities']
+        categorized_data = {}
+        for entity in entities:
+            category = entity['category']
+            if category not in categorized_data:
+                categorized_data[category] = []
+            categorized_data[category].append(entity['text'])
+        print(type(categorized_data))
+        return render(response, "AIdemosite/language_ner_pii.html", {"categorized":categorized_data, "flag":True })
+    
+    return render(response, "AIdemosite/language_ner_pii.html", {})
+
+def language_detection(response):
+    if response.method == 'POST' :
+        from .language_services import language_detection
+        text = response.POST.get('input_text')
+        lan = response.POST.get('lang_slct')
+
+        str_input = text.split('\n')
+        list_input = []
+        for i in range(0,len(str_input)):
+            list_input.append({"id":i, "text":str_input[i]})
+        dict_input = {"documents":list_input}
+
+        result = language_detection(dict_input)
+        results = result['documents']
+
+        for i in range(0,len(str_input)):
+            list_input[i]['detectedLanguage'] = results[i]['detectedLanguage']['name']
+            list_input[i]['lanCode'] = results[i]['detectedLanguage']['iso6391Name']
+        # print("dict: ", dict_input)
+        # print("results: ", results)
+        # print("list input: ", list_input)
+        return render(response, "AIdemosite/language_detection.html", {"flag":True, "results":list_input})
+
+    return render(response, "AIdemosite/language_detection.html", {})
 
 #Computer Vision
 def image_description(response):
@@ -193,8 +255,6 @@ def img_thumbnail(response):
 
     return render(response, "AIdemosite/img_thumbnail.html", {"flag":False})
 
-
-
 def read_text(response):
     if response.method == 'POST':
         from .computer_vision_analysis import read_text
@@ -242,9 +302,9 @@ def brand_detection(response):
         data = r_data['data']['brands']
         img = r_data['img']
         img.save("static/images/brand_detection_result.jpg")
-        return render(response, "AIdemosite/object_detection.html", {"flag":True, "data":data})
+        return render(response, "AIdemosite/brand_detection.html", {"flag":True, "data":data})
 
-    return render(response, "AIdemosite/object_detection.html", {})
+    return render(response, "AIdemosite/brand_detection.html", {})
 
 def img_categories(response):
     
@@ -276,11 +336,31 @@ def img_type(response):
 
     return render(response, "AIdemosite/img_type.html", {"flag":False})
 
-
-
 def test(response):
-    
+    if response.method == 'POST':
+        audio = response.FILES['audio_file']
+        audio_data = Audio(audio_file=audio)
+        audio_data.save()
+        return HttpResponse("Audio data received")
     return render(response, "AIdemosite/test.html", {})
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Audio
+
+def upload_audio(request):
+    if request.method == 'POST':
+        audio = request.FILES['audio_file']
+        audio_data = Audio(audio_file=audio)
+        audio_data.save()
+        return redirect('get_audio', audio_data.pk)
+
+def get_audio(request, pk):
+    audio = Audio.objects.get(pk=pk)
+    response = HttpResponse(audio.audio_file, content_type='audio/mp3')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(audio.audio_file.name)
+    return response
+
     
 def api_instruction(response):
     if response.method == 'GET':

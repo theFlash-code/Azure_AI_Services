@@ -9,15 +9,15 @@ from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
 
-# CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
-# REGION = 'eastasia'
+CV_SUB_KEY = '4b2c2c4a99cc4703973a809e965c3518'
+REGION = 'eastasia'
 
-KVUri = "https://aidemosite-keyvault.vault.azure.net"
-credential = DefaultAzureCredential()
-client = SecretClient(vault_url=KVUri, credential=credential)
+# KVUri = "https://aidemosite-keyvault.vault.azure.net"
+# credential = DefaultAzureCredential()
+# client = SecretClient(vault_url=KVUri, credential=credential)
 
-CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
-REGION = client.get_secret("REGION").value
+# CV_SUB_KEY = client.get_secret("CV-SUB-KEY").value
+# REGION = client.get_secret("REGION").value
 
 def image_description(url, visualFeatures):
     
@@ -46,16 +46,7 @@ def image_description(url, visualFeatures):
         conn.close()
 
         img = Image.open(requests.get(url, stream=True).raw)
-        # img_drw = ImageDraw.Draw(img)  
-        # face = data['faces']
-        # for pos in face:
-        #     rect = pos['faceRectangle']
-        #     t = rect['top']
-        #     l = rect['left']
-        #     w = rect['width']
-        #     h = rect['height']
-        #     img_drw.rectangle([(l, t), (l+w, t+h)], outline ="red", width=7)
-
+        
         return {"data":data, "img":img}
 
     except Exception as e:

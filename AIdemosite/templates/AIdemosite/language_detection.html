@@ -1,0 +1,36 @@
+{% extends 'AIdemosite/base.html' %} {% block content %}
+
+<h2>Language Detection</h2>
+<form method="post" class="container-fluid">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <p>create new lines to identify the languages of multiple sentences</p>
+  </div>
+  <div class="input-groupt mb-3">
+    <textarea
+      name="input_text"
+      style="display: inline-block; width: 500px; height: 200px"
+    ></textarea>
+  </div>
+  <div class="input-group mb-3">
+    <button type="submit" class="btn btn-outline-secondary" name="btn-analyze">
+      Analyze
+    </button>
+  </div>
+</form>
+{% if flag == True%}
+<div style="padding-top: 30px"></div>
+<!-- <div class="input-group"> -->
+{% for result in  results%}
+
+<div class="mb-3">
+    <h4>Sentence {{result.id}}:</h4>
+    <div class="input-group">
+        <button class="btn btn-primary mb-1" disabled="disabled">{{ result.detectedLanguage }} ({{result.lanCode}})</button>
+    </div>
+    <p>{{result.text}}</p>
+</div>
+
+{% endfor %}
+<!-- </div> -->
+{% endif %} {% endblock %}
