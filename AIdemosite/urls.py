@@ -5,7 +5,7 @@ urlpatterns = [
     path("", views.index, name="index"),
 
     # path('upload-audio/', views.upload_audio, name='upload_audio'),
-    path('audio/<int:pk>', views.get_audio, name='get_audio'),
+    # path('audio/<int:pk>', views.get_audio, name='get_audio'),
     path("speech_services/", views.speech_services, name="speech_services"),
     path("speech_translate/", views.speech_translate, name="speech_translate"),
     path("speech_to_text/", views.speech_to_text, name="speech_to_text"),
