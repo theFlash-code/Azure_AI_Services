@@ -339,27 +339,27 @@ def img_type(response):
 def test(response):
     if response.method == 'POST':
         audio = response.FILES['audio_file']
-        audio_data = Audio(audio_file=audio)
-        audio_data.save()
+        # audio_data = Audio(audio_file=audio)
+        # audio_data.save()
         return HttpResponse("Audio data received")
     return render(response, "AIdemosite/test.html", {})
 
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Audio
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+# from .models import Audio
 
-def upload_audio(request):
-    if request.method == 'POST':
-        audio = request.FILES['audio_file']
-        audio_data = Audio(audio_file=audio)
-        audio_data.save()
-        return redirect('get_audio', audio_data.pk)
+# def upload_audio(request):
+#     if request.method == 'POST':
+#         audio = request.FILES['audio_file']
+#         audio_data = Audio(audio_file=audio)
+#         audio_data.save()
+#         return redirect('get_audio', audio_data.pk)
 
-def get_audio(request, pk):
-    audio = Audio.objects.get(pk=pk)
-    response = HttpResponse(audio.audio_file, content_type='audio/mp3')
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(audio.audio_file.name)
-    return response
+# def get_audio(request, pk):
+#     audio = Audio.objects.get(pk=pk)
+#     response = HttpResponse(audio.audio_file, content_type='audio/mp3')
+#     response['Content-Disposition'] = 'attachment; filename="{}"'.format(audio.audio_file.name)
+#     return response
 
     
 def api_instruction(response):
