@@ -1,0 +1,14 @@
+{% extends 'AIdemosite/base.html' %} {% block content %} {% load static %}
+<h2>Speech-to-text</h2>
+
+
+<form id="audio-form" method="post" enctype="multipart/form-data" action="{% url 'upload_audio' %}">
+    {% csrf_token %}
+    <input type="file" name="audio_file" id="audio-file" accept="audio/*">
+    <button type="submit">Upload</button>
+</form>
+
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="{% static 'js/test.js'%}"></script>
+
+{% endblock %}
